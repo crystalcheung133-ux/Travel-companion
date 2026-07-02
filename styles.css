@@ -674,3 +674,93 @@ a.pill[href*="maps.google"]{
   .expense-dashboard-v32 .expense-focus-card h3{font-size:16px!important;}
   .expense-dashboard-v32 .expense-focus-card p{font-size:12.5px!important;line-height:1.22;}
 }
+
+
+/* v3.3 P0 corrections: square home watermark, expense history sort, popup bottom nav, larger friend picker */
+.home-premium.home-v31{
+  min-height:calc(100dvh - 96px)!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:14px!important;
+  padding:14px 16px 96px!important;
+}
+.home-brand-card.v32-watermark-home{
+  width:min(88vw,520px)!important;
+  aspect-ratio:1/1!important;
+  min-height:0!important;
+  height:auto!important;
+  margin-inline:auto!important;
+  padding:clamp(20px,5vw,38px)!important;
+}
+.home-single-watermark{
+  width:92%!important;
+  max-width:470px!important;
+  opacity:.145!important;
+  top:50%!important;
+}
+.home-stats-panel{width:min(88vw,520px)!important;margin-inline:auto!important;}
+@media(max-width:480px){
+  .home-premium.home-v31{justify-content:flex-start!important;padding-top:18px!important;}
+  .home-brand-card.v32-watermark-home{width:min(90vw,390px)!important;}
+  .home-single-watermark{width:94%!important;opacity:.155!important;}
+  .home-brand-card.v32-watermark-home h1{font-size:clamp(38px,11vw,48px)!important;}
+  .home-stats-panel{width:min(90vw,390px)!important;grid-template-columns:repeat(4,1fr)!important;gap:6px!important;}
+  .home-stats-panel div{padding:9px 4px!important;border-radius:16px!important;}
+  .home-stats-panel strong{font-size:19px!important;}
+  .home-stats-panel span{font-size:9px!important;}
+}
+
+.app-nav button.nav-pop-trigger,
+.app-nav button.trip-trigger,
+.app-nav button.guide-trigger,
+.app-nav button.days-trigger{
+  border:0!important;background:transparent!important;color:inherit!important;font:inherit!important;
+  display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;
+  gap:2px!important;min-width:0!important;padding:6px 2px!important;cursor:pointer!important;
+}
+.app-nav button span{font-size:20px;line-height:1;}
+.app-nav button small{font-size:10px;font-weight:750;color:var(--muted);}
+
+/* Expenses: page summary first, history below; latest only means latest-first inside history */
+.expense-latest-top{display:none!important;}
+.expense-dashboard-v33{display:grid;gap:12px;margin-bottom:14px;}
+.expense-dashboard-v33 .expense-total-card{background:linear-gradient(180deg,#fffaf2,#fff3e4);border:1px solid var(--line);border-radius:28px;padding:20px!important;box-shadow:0 16px 40px rgba(54,39,24,.07);display:block!important;}
+.expense-dashboard-v33 .expense-total-card span{font-size:13px;color:var(--muted);font-weight:900;text-transform:uppercase;letter-spacing:.1em;display:block;}
+.expense-dashboard-v33 .expense-total-card strong{font-size:clamp(30px,8vw,44px)!important;line-height:1;display:block;margin:6px 0;color:#3a2619;}
+.expense-dashboard-v33 .expense-total-card small{font-size:13px;color:var(--muted);}
+.expense-dashboard-v33 .expense-focus-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.expense-dashboard-v33 .expense-focus-card{background:#fffaf2;border:1px solid var(--line);border-radius:24px;padding:16px!important;box-shadow:0 12px 28px rgba(54,39,24,.05);}
+.expense-dashboard-v33 .expense-focus-card h3{font-size:19px!important;margin:0 0 10px;color:#3a2619;}
+.expense-dashboard-v33 .expense-focus-card p{font-size:15px!important;line-height:1.32;margin:6px 0!important;font-weight:650;}
+@media(max-width:480px){
+  .expense-dashboard-v33 .expense-total-card{padding:16px!important;}
+  .expense-dashboard-v33 .expense-focus-grid{gap:8px;}
+  .expense-dashboard-v33 .expense-focus-card{padding:12px!important;border-radius:20px;}
+  .expense-dashboard-v33 .expense-focus-card h3{font-size:16px!important;}
+  .expense-dashboard-v33 .expense-focus-card p{font-size:12.5px!important;line-height:1.22;}
+}
+
+/* Expense tool: no separate Latest Transactions block; intro remains visible */
+.tools-sheet .latest-transactions{display:none!important;}
+.tools-sheet .modal-intro,
+.expense-page-shell .page-hero .lead{display:block!important;}
+.tools-sheet > .timestamp{font-size:11px!important;color:var(--muted)!important;margin-top:2px!important;}
+
+/* Friend picker: larger, easier iOS-action-sheet feel */
+.friend-choice-list{gap:8px!important;margin-top:14px!important;}
+.friend-choice-list button{
+  min-height:62px!important;
+  padding:16px 18px!important;
+  border:1px solid var(--line)!important;
+  border-radius:18px!important;
+  background:#fffaf2!important;
+  font-size:18px!important;
+  font-weight:800!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  box-shadow:0 8px 22px rgba(54,39,24,.05)!important;
+}
+.friend-choice-list button:active{transform:scale(.99);background:#fff3e4!important;}

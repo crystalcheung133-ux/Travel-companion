@@ -548,7 +548,6 @@ function copyText(text){
     }else arr.push(data);
     writeJson('expenses',arr);
     renderExpenses();
-    renderLatestExpenseMini();
     resetExpenseForm();
     const save=document.getElementById('expenseSaveButton');
     if(save){
@@ -598,11 +597,8 @@ function copyText(text){
       const who=personal ? `Consumed by ${FRIENDS[e.consumedBy||e.split?.[0]||e.paidBy]}` : `Split: ${(e.split||[]).map(k=>FRIENDS[k]).join(' · ')}`;
       return `<div class="expense-card"><strong>${e.item}</strong><p class="timestamp">${formatTime(e.createdAt)}${e.editedAt?` · Edited ${formatTime(e.editedAt)}`:''}</p><p>${Number(e.total).toLocaleString()} VND · Paid by ${FRIENDS[e.paidBy]}</p><p>${personal?'Personal Expense':'Shared Expense'} · ${who}</p><div class="entry-actions"><button class="mini-btn" onclick="editExpense(${e._idx})">✏️ Edit</button><button class="mini-btn" onclick="deleteExpense(${e._idx})">🗑 Delete</button></div></div>`;
     };
-    const latest=sorted[0];
-    const latestBlock=`<div class="expense-latest-top"><h3>Latest Transaction</h3>${latest?cardHtml(latest):'<p>No transactions yet.</p>'}</div>`;
     const history=sorted.map(cardHtml).join('');
-    pageBox.innerHTML=`${latestBlock}<div class="expense-dashboard-v32"><div class="expense-total-card"><span>Trip Total</span><strong>${total.toLocaleString()} VND</strong><small>Shared + personal expenses</small></div><div class="expense-focus-grid"><div class="expense-focus-card"><h3>Personal Spend</h3>${spendHtml}</div><div class="expense-focus-card"><h3>Settlement</h3>${balanceHtml}</div></div></div><div class="expense-history-block"><h3>Transaction History</h3><div class="transaction-scroll">${history||'<p>No transactions yet.</p>'}</div></div>`;
-    renderLatestExpenseMini();
+    pageBox.innerHTML=`<div class="expense-dashboard-v33"><div class="expense-total-card"><span>Trip Total</span><strong>${total.toLocaleString()} VND</strong><small>Shared + personal expenses</small></div><div class="expense-focus-grid"><div class="expense-focus-card"><h3>Personal Spend</h3>${spendHtml}</div><div class="expense-focus-card"><h3>Settlement</h3>${balanceHtml}</div></div></div><div class="expense-history-block"><h3>Transaction History</h3><p class="timestamp">最新交易會顯示喺最上面。</p><div class="transaction-scroll">${history||'<p>No transactions yet.</p>'}</div></div>`;
   };
-  document.addEventListener('DOMContentLoaded',()=>{renderMoodButtons([]);renderMoments();renderExpenses();renderLatestExpenseMini();});
+  document.addEventListener('DOMContentLoaded',()=>{renderMoodButtons([]);renderMoments();renderExpenses();});
 })();

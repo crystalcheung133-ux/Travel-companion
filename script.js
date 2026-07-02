@@ -602,3 +602,86 @@ function copyText(text){
   };
   document.addEventListener('DOMContentLoaded',()=>{renderMoodButtons([]);renderMoments();renderExpenses();});
 })();
+
+/* v3.4 P0 bug fix overrides: expense summary page, tool history, latest-first */
+(function(){
+  function v34ReadJson(key, fallback){try{return JSON.parse(localStorage.getItem(key)||JSON.stringify(fallback));}catch(e){return fallback;}}
+  function v34Friends(){return (typeof FRIENDS !== 'undefined') ? FRIENDS : {christal:'Christal',crystal:'Crystal',mero:'Mero',vivian:'Vivian'};}
+  function v34FormatTime(iso){
+    if(!iso) return '';
+    try{return new Date(iso).toLocaleString([], {dateStyle:'medium', timeStyle:'short'});}catch(e){return iso;}
+  }
+  function v34ExpenseCard(e){
+    const F=v34Friends();
+    const personal=e.type==='personal';
+    const who=personal ? `Consumed by ${F[e.consumedBy||((e.split||[])[0])||e.paidBy]||''}` : `Split: ${(e.split||[]).map(k=>F[k]||k).join(' · ')}`;
+    return `<div class="expense-card"><strong>${e.item||''}</strong><p class="timestamp">${v34FormatTime(e.createdAt)}${e.editedAt?` · Edited ${v34FormatTime(e.editedAt)}`:''}</p><p>${Number(e.total||0).toLocaleString()} VND · Paid by ${F[e.paidBy]||e.paidBy}</p><p>${personal?'Personal Expense':'Shared Expense'} · ${who}</p><div class="entry-actions"><button class="mini-btn" onclick="editExpense(${e._idx})">✏️ Edit</button><button class="mini-btn" onclick="deleteExpense(${e._idx})">🗑 Delete</button></div></div>`;
+  }
+  window.renderExpenses = function(){
+    const pageBox=document.getElementById('expensePageList');
+    const arr=v34ReadJson('expenses',[]);
+    const sorted=arr.map((e,i)=>({...e,_idx:i})).sort((a,b)=>String(b.createdAt||'').localeCompare(String(a.createdAt||'')));
+    if(pageBox){
+      const F=v34Friends();
+      let total=arr.reduce((sum,e)=>sum+Number(e.total||0),0);
+      let personalSpend={christal:0,crystal:0,mero:0,vivian:0};
+      let balance={christal:0,crystal:0,mero:0,vivian:0};
+      arr.forEach(e=>{
+        const amount=Number(e.total||0);
+        if(!balance[e.paidBy]) balance[e.paidBy]=0;
+        balance[e.paidBy]+=amount;
+        if(e.type==='personal'){
+          const consumer=e.consumedBy || ((e.split||[])[0]) || e.paidBy;
+          if(!personalSpend[consumer]) personalSpend[consumer]=0;
+          if(!balance[consumer]) balance[consumer]=0;
+          personalSpend[consumer]+=amount; balance[consumer]-=amount;
+        }else{
+          const split=(e.split&&e.split.length)?e.split:[e.paidBy];
+          const share=amount/split.length;
+          split.forEach(k=>{ if(!personalSpend[k]) personalSpend[k]=0; if(!balance[k]) balance[k]=0; personalSpend[k]+=share; balance[k]-=share; });
+        }
+      });
+      const order=['christal','crystal','mero','vivian'];
+      const spendHtml=order.map(k=>`<p>${F[k]}<br><strong>${Math.round(personalSpend[k]||0).toLocaleString()} VND</strong></p>`).join('');
+      const balanceHtml=order.map(k=>{const v=balance[k]||0;return `<p>${F[k]}<br><strong>${v>=0?'Receive':'Owes'} ${Math.abs(Math.round(v)).toLocaleString()} VND</strong></p>`}).join('');
+      const history=sorted.map(v34ExpenseCard).join('');
+      pageBox.innerHTML=`<div class="expense-dashboard-v33"><div class="expense-total-card"><span>Trip Total</span><strong>${total.toLocaleString()} VND</strong><small>Shared + personal expenses</small></div><div class="expense-focus-grid"><div class="expense-focus-card"><h3>Personal Spend</h3>${spendHtml}</div><div class="expense-focus-card"><h3>Settlement</h3>${balanceHtml}</div></div></div><div class="expense-history-block"><h3>Transaction History</h3><p class="timestamp">最新交易會顯示喺最上面。</p><div class="transaction-scroll">${history||'<p>No transactions yet.</p>'}</div></div>`;
+    }
+    renderToolTransactionHistory();
+  };
+  window.renderToolTransactionHistory = function(){
+    const box=document.getElementById('toolTransactionHistory');
+    if(!box) return;
+    const arr=v34ReadJson('expenses',[]);
+    const sorted=arr.map((e,i)=>({...e,_idx:i})).sort((a,b)=>String(b.createdAt||'').localeCompare(String(a.createdAt||''))).slice(0,5);
+    box.innerHTML=`<h3>Transaction History</h3>${sorted.length?sorted.map(v34ExpenseCard).join(''):'<p class="timestamp">No transactions yet.</p>'}`;
+  };
+  const oldOpen=window.openExpenseModal;
+  window.openExpenseModal=function(){
+    if(typeof oldOpen === 'function') oldOpen();
+    const sheet=document.querySelector('#expenseModal .tools-sheet');
+    if(sheet && !document.getElementById('toolTransactionHistory')){
+      const form=sheet.querySelector('.expense-form');
+      const holder=document.createElement('div');
+      holder.className='tool-transaction-history';
+      holder.id='toolTransactionHistory';
+      if(form && form.parentNode){ form.parentNode.insertBefore(holder, form.nextSibling); }
+      else sheet.appendChild(holder);
+    }
+    if(sheet && !sheet.querySelector('.summary-link-row')){
+      const row=document.createElement('div');
+      row.className='summary-link-row';
+      row.innerHTML='<span class="timestamp">Need the full summary?</span><a class="mini-btn" href="expenses.html">Open Summary</a>';
+      const intro=sheet.querySelector('#expenseIntro');
+      if(intro && intro.parentNode){ intro.parentNode.insertBefore(row, intro.nextSibling); }
+      else sheet.insertBefore(row, sheet.firstChild);
+    }
+    renderToolTransactionHistory();
+  };
+  const oldSave=window.saveExpense;
+  window.saveExpense=function(){
+    if(typeof oldSave === 'function') oldSave();
+    try{renderExpenses();renderToolTransactionHistory();}catch(e){}
+  };
+  document.addEventListener('DOMContentLoaded',()=>{try{renderExpenses();renderToolTransactionHistory();}catch(e){}});
+})();

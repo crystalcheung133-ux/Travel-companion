@@ -449,3 +449,160 @@ function copyText(text){
   if(navigator.clipboard){navigator.clipboard.writeText(text).then(()=>alert('Address copied')).catch(()=>alert(text));}
   else alert(text);
 }
+
+
+/* v3.2 P0 workflow fixes: append Moments, latest-first Expenses, save-and-stay expense tool */
+(function(){
+  function readJson(key, fallback){try{return JSON.parse(localStorage.getItem(key)||JSON.stringify(fallback));}catch(e){return fallback;}}
+  function writeJson(key, value){localStorage.setItem(key, JSON.stringify(value));}
+  window.openMomentsModal = function(key){
+    currentMomentKey = key || 'general';
+    const g = PLACES[currentMomentKey] || PLACES.general || {title:'Moment'};
+    const title = document.getElementById('momentsTitle');
+    const friend = document.getElementById('momentsFriend');
+    const text = document.getElementById('momentsText');
+    if(title) title.textContent = g.title || 'Moment';
+    if(friend) friend.textContent = FRIENDS[getFriend()];
+    if(text) text.value = '';
+    setStars(0);
+    renderMoodButtons([]);
+    const modal=document.getElementById('momentsModal');
+    if(modal) modal.classList.add('show');
+  };
+  window.saveMoments = function(){
+    const key = currentMomentKey || 'general';
+    const g = PLACES[key] || PLACES.general || {title:'Moment'};
+    const textEl=document.getElementById('momentsText');
+    const ratingEl=document.getElementById('momentsRating');
+    const now=new Date().toISOString();
+    const entry={
+      id:'m_'+Date.now()+'_'+Math.random().toString(36).slice(2,7),
+      itemKey:key,
+      itemTitle:g.title || 'Moment',
+      friendLabel:FRIENDS[getFriend()],
+      rating:Number(ratingEl?.value||0),
+      moods:(currentMood||[]).slice(),
+      text:textEl?.value||'',
+      createdAt:now
+    };
+    const arr=readJson('moments_list',[]);
+    arr.push(entry);
+    writeJson('moments_list',arr);
+    // Keep a lightweight latest cache for backward compatibility without overwriting the full list.
+    localStorage.setItem('moment_latest_'+key, JSON.stringify(entry));
+    if(textEl) textEl.value='';
+    setStars(0); renderMoodButtons([]);
+    closeMomentsModal(); renderMoments();
+  };
+  window.deleteMoment = function(idOrKey){
+    let arr=readJson('moments_list',[]);
+    const before=arr.length;
+    arr=arr.filter(e=>e.id!==idOrKey);
+    writeJson('moments_list',arr);
+    if(before===arr.length && idOrKey && !idOrKey.startsWith('m_')) localStorage.removeItem('moment_'+idOrKey);
+    renderMoments();
+  };
+  window.renderMoments = function(){
+    const box=document.getElementById('momentsTimeline'); if(!box) return;
+    let arr=readJson('moments_list',[]);
+    // Include legacy one-per-place moments once so older saved data still appears.
+    for(let i=0;i<localStorage.length;i++){
+      const k=localStorage.key(i);
+      if(k && k.startsWith('moment_') && !k.startsWith('moment_latest_')){
+        try{
+          const e=JSON.parse(localStorage.getItem(k));
+          if(e && !arr.some(x=>x.id===e.id || (x.createdAt===e.createdAt && x.itemKey===e.itemKey && x.text===e.text))){
+            arr.push({...e,id:e.id||('legacy_'+k.replace('moment_',''))});
+          }
+        }catch(err){}
+      }
+    }
+    arr.sort((a,b)=>String(b.createdAt||'').localeCompare(String(a.createdAt||'')));
+    if(!arr.length){box.innerHTML='<p>暫時未有 Moments。</p>';return;}
+    box.innerHTML=arr.map(e=>`<div class="moments-entry">
+      <strong>${e.itemTitle||'Moment'}</strong>
+      <p class="timestamp">${e.friendLabel||''} · ${formatTime(e.createdAt)}</p>
+      <p>${moodLabel(e.moods||[])}</p>
+      <p>${'⭐'.repeat(e.rating||0)}</p>
+      <p>${e.text||''}</p>
+      <div class="entry-actions"><button class="mini-btn" onclick="deleteMoment('${e.id||e.itemKey}')">🗑 Delete</button></div>
+    </div>`).join('');
+  };
+  window.saveExpense = function(){
+    const item=document.getElementById('expenseItem')?.value || '';
+    const total=Number(String(document.getElementById('expenseTotal')?.value||'').replace(/[^0-9.]/g,''));
+    const paidBy=document.getElementById('expensePaidBy')?.value || 'crystal';
+    const personal=!!document.getElementById('expensePersonal')?.checked;
+    let split=[...document.querySelectorAll('#expenseModal input[data-split]:checked')].map(x=>x.value);
+    const consumedBy=document.getElementById('expenseConsumedBy')?.value || paidBy;
+    if(!item||!total) return alert('Please complete item and total.');
+    if(!personal && !split.length) return alert('Please choose who to split between.');
+    const arr=readJson('expenses',[]);
+    const now=new Date().toISOString();
+    const data={item,total,paidBy,type:personal?'personal':'shared',split:personal?[consumedBy]:split,consumedBy:personal?consumedBy:null,createdAt:now};
+    if(editingExpenseIndex!==null && arr[editingExpenseIndex]){
+      data.createdAt=arr[editingExpenseIndex].createdAt||now;
+      data.editedAt=now;
+      arr[editingExpenseIndex]=data;
+      editingExpenseIndex=null;
+    }else arr.push(data);
+    writeJson('expenses',arr);
+    renderExpenses();
+    renderLatestExpenseMini();
+    resetExpenseForm();
+    const save=document.getElementById('expenseSaveButton');
+    if(save){
+      const old=save.textContent;
+      save.textContent='✓ Saved — Add Another';
+      setTimeout(()=>{save.textContent='Save Expense';},1400);
+    }
+    const title=document.getElementById('expenseModalTitle');
+    if(title) title.textContent='💸 Split Bill';
+    // Intentionally stay in the tool so multiple transactions can be entered quickly.
+  };
+  window.renderLatestExpenseMini = function(){
+    const box=document.getElementById('latestExpenseMini'); if(!box) return;
+    const arr=readJson('expenses',[]);
+    const latest=arr.map((e,i)=>({...e,_idx:i})).sort((a,b)=>String(b.createdAt||'').localeCompare(String(a.createdAt||''))).slice(0,3);
+    if(!latest.length){box.innerHTML='<p class="timestamp">No transactions yet.</p>';return;}
+    box.innerHTML=latest.map(e=>`<div class="expense-card">
+      <strong>${e.item}</strong>
+      <p class="timestamp">${formatTime(e.createdAt)}</p>
+      <p>${Number(e.total).toLocaleString()} VND · Paid by ${FRIENDS[e.paidBy]}</p>
+      <div class="entry-actions"><button class="mini-btn" onclick="editExpense(${e._idx})">✏️ Edit</button><button class="mini-btn" onclick="deleteExpense(${e._idx})">🗑 Delete</button></div>
+    </div>`).join('');
+  };
+  window.renderExpenses = function(){
+    const pageBox=document.getElementById('expensePageList'); if(!pageBox) return;
+    const arr=readJson('expenses',[]);
+    const sorted=arr.map((e,i)=>({...e,_idx:i})).sort((a,b)=>String(b.createdAt||'').localeCompare(String(a.createdAt||'')));
+    let total=arr.reduce((sum,e)=>sum+Number(e.total||0),0);
+    let personalSpend={christal:0,crystal:0,mero:0,vivian:0};
+    let balance={christal:0,crystal:0,mero:0,vivian:0};
+    arr.forEach(e=>{
+      const amount=Number(e.total||0);
+      balance[e.paidBy]+=amount;
+      if(e.type==='personal'){
+        const consumer=e.consumedBy || (e.split&&e.split[0]) || e.paidBy;
+        personalSpend[consumer]+=amount; balance[consumer]-=amount;
+      }else{
+        const split=(e.split&&e.split.length)?e.split:[e.paidBy];
+        const share=amount/split.length;
+        split.forEach(k=>{personalSpend[k]+=share; balance[k]-=share;});
+      }
+    });
+    const spendHtml=Object.entries(personalSpend).map(([k,v])=>`<p>${FRIENDS[k]}<br><strong>${Math.round(v).toLocaleString()} VND</strong></p>`).join('');
+    const balanceHtml=Object.entries(balance).map(([k,v])=>`<p>${FRIENDS[k]}<br><strong>${v>=0?'Receive':'Owes'} ${Math.abs(Math.round(v)).toLocaleString()} VND</strong></p>`).join('');
+    const cardHtml=(e)=>{
+      const personal=e.type==='personal';
+      const who=personal ? `Consumed by ${FRIENDS[e.consumedBy||e.split?.[0]||e.paidBy]}` : `Split: ${(e.split||[]).map(k=>FRIENDS[k]).join(' · ')}`;
+      return `<div class="expense-card"><strong>${e.item}</strong><p class="timestamp">${formatTime(e.createdAt)}${e.editedAt?` · Edited ${formatTime(e.editedAt)}`:''}</p><p>${Number(e.total).toLocaleString()} VND · Paid by ${FRIENDS[e.paidBy]}</p><p>${personal?'Personal Expense':'Shared Expense'} · ${who}</p><div class="entry-actions"><button class="mini-btn" onclick="editExpense(${e._idx})">✏️ Edit</button><button class="mini-btn" onclick="deleteExpense(${e._idx})">🗑 Delete</button></div></div>`;
+    };
+    const latest=sorted[0];
+    const latestBlock=`<div class="expense-latest-top"><h3>Latest Transaction</h3>${latest?cardHtml(latest):'<p>No transactions yet.</p>'}</div>`;
+    const history=sorted.map(cardHtml).join('');
+    pageBox.innerHTML=`${latestBlock}<div class="expense-dashboard-v32"><div class="expense-total-card"><span>Trip Total</span><strong>${total.toLocaleString()} VND</strong><small>Shared + personal expenses</small></div><div class="expense-focus-grid"><div class="expense-focus-card"><h3>Personal Spend</h3>${spendHtml}</div><div class="expense-focus-card"><h3>Settlement</h3>${balanceHtml}</div></div></div><div class="expense-history-block"><h3>Transaction History</h3><div class="transaction-scroll">${history||'<p>No transactions yet.</p>'}</div></div>`;
+    renderLatestExpenseMini();
+  };
+  document.addEventListener('DOMContentLoaded',()=>{renderMoodButtons([]);renderMoments();renderExpenses();renderLatestExpenseMini();});
+})();

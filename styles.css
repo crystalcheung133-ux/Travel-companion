@@ -547,3 +547,130 @@ a.pill[href*="maps.google"]{
   .transaction-scroll{max-height:48vh;}
   .modal-intro{font-size:13px!important;}
 }
+
+
+/* v3.2 P0 production QA fixes */
+/* Home: one logo watermark only, no pasted hero image */
+.home-brand-card.v32-watermark-home{
+  min-height: min(62vh, 560px);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  border-radius:38px;
+  padding:42px 20px 34px!important;
+  background:
+    radial-gradient(circle at 50% 46%, rgba(198,150,78,.14), transparent 36%),
+    linear-gradient(180deg, rgba(255,253,248,.98), rgba(255,247,237,.96))!important;
+}
+.home-brand-card.v32-watermark-home:before{display:none!important;}
+.home-single-watermark{
+  position:absolute;
+  width:min(520px, 118vw);
+  aspect-ratio:1/1;
+  left:50%; top:45%;
+  transform:translate(-50%,-50%);
+  background:url('logo-monogram-transparent.png') center/contain no-repeat;
+  opacity:.13;
+  mix-blend-mode:multiply;
+  filter:saturate(.92) contrast(.98);
+  z-index:0;
+  pointer-events:none;
+}
+.home-brand-card.v32-watermark-home > *:not(.home-single-watermark){position:relative;z-index:1;}
+.home-brand-card.v32-watermark-home .home-since{font-size:12px;letter-spacing:.24em;text-transform:uppercase;margin:0 0 18px;color:#8a5b34;font-weight:800;}
+.home-brand-card.v32-watermark-home h1{font-size:clamp(46px,12vw,82px)!important;line-height:.86;margin:0 0 14px;color:#3a2619;}
+.home-brand-card.v32-watermark-home .home-tagline{font-size:14px;letter-spacing:.08em;margin:0 0 18px;color:#6d5140;font-weight:700;}
+.home-brand-card.v32-watermark-home .home-trip-line{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:8px 0 12px;}
+.home-brand-card.v32-watermark-home .home-trip-line span{border:1px solid rgba(138,79,45,.22);background:rgba(255,250,242,.62);border-radius:999px;padding:8px 12px;font-size:13px;font-weight:800;color:#5e3c27;}
+.home-brand-card.v32-watermark-home .home-countdown{margin-top:10px;background:rgba(255,250,242,.72);}
+.home-logo-cameo,.home-logo-mark,.home-logo-watermark{display:none!important;}
+
+/* Remove unwanted toolbar text labels */
+.floating-tools .hidden-action::after{content:none!important;display:none!important;}
+.floating-tools.open .hidden-action::after{opacity:0!important;display:none!important;}
+
+/* Tool modals: fit on one mobile screen as much as possible */
+.moments-modal.show,.tools-modal.show{place-items:end center!important;padding:8px!important;overflow:hidden!important;}
+.moments-sheet,.tools-sheet{
+  width:min(560px,100%)!important;
+  max-height:calc(100dvh - 16px)!important;
+  height:auto!important;
+  overflow:hidden!important;
+  border-radius:26px!important;
+  padding:14px!important;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+.moments-sheet .kicker,.tools-sheet .kicker{font-size:11px!important;margin:0!important;}
+.moments-sheet h2,.tools-sheet h2{font-size:22px!important;margin:0 42px 0 0!important;line-height:1.05!important;}
+.moments-sheet .modal-intro,.tools-sheet .modal-intro{font-size:12px!important;line-height:1.25!important;margin:2px 0 4px!important;}
+.moments-sheet p,.tools-sheet p{margin:2px 0!important;}
+.moments-close,.tools-close{position:absolute;right:10px;top:10px;width:34px!important;height:34px!important;font-size:20px!important;z-index:3;}
+.moments-form,.expense-form{display:flex;flex-direction:column;gap:5px;}
+.star-row{display:flex;gap:2px;margin:0!important;}
+.star{font-size:22px!important;line-height:1!important;}
+.mood-help{font-size:11px!important;color:var(--muted);}
+.mood-grid{display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:5px!important;}
+.mood-btn{padding:7px 5px!important;border-radius:12px!important;font-size:12px!important;line-height:1.1!important;}
+#momentsText{min-height:64px!important;max-height:72px!important;padding:9px!important;font-size:14px!important;border-radius:14px!important;}
+.moments-sheet .photo-input{padding:8px!important;border-radius:14px!important;font-size:12px!important;}
+.moments-sheet .btn,.tools-sheet .btn{min-height:36px!important;padding:9px 12px!important;border-radius:14px!important;font-size:13px!important;}
+.tools-sheet .latest-transactions{order:1;border-top:0!important;border-bottom:1px solid var(--line);margin:0 0 4px!important;padding:2px 0 6px!important;max-height:96px!important;overflow:hidden!important;}
+.tools-sheet .latest-transactions h3{font-size:13px!important;margin:0 0 3px!important;}
+.tools-sheet .latest-transactions .expense-card{padding:7px 8px!important;border-radius:12px!important;margin:3px 0!important;font-size:12px!important;}
+.tools-sheet .latest-transactions .expense-card p{display:none!important;}
+.tools-sheet .latest-transactions .entry-actions{display:none!important;}
+.tools-sheet .expense-form{order:2;}
+.tools-sheet > .timestamp{order:3;font-size:10px!important;margin:0!important;}
+.expense-form input,.expense-form select{min-height:34px!important;padding:8px 10px!important;border-radius:12px!important;font-size:13px!important;}
+.expense-form label{font-size:12px!important;min-height:22px!important;margin:0!important;}
+.expense-form .check-row{padding:6px 8px!important;margin:1px 0!important;border-radius:12px!important;font-size:12px!important;}
+.expense-form input[type="checkbox"]{width:16px!important;height:16px!important;}
+.expense-split-tools{display:none!important;}
+#splitBetweenBlock{font-size:12px!important;}
+#splitBetweenBlock p{font-size:12px!important;font-weight:800;}
+#splitBetweenBlock label{display:inline-flex!important;width:48%;padding:4px 0!important;}
+#splitBetweenBlock br{display:none!important;}
+#consumedByBlock{font-size:12px!important;}
+
+/* Expenses page: latest first + larger summary */
+.expense-latest-top{border:1px solid var(--line);background:#fff7ed;border-radius:24px;padding:14px;margin:0 0 12px;box-shadow:0 12px 32px rgba(54,39,24,.06);}
+.expense-latest-top h3{margin:0 0 8px;font-size:18px;}
+.expense-latest-top .expense-card{margin:0;padding:11px;border-radius:18px;}
+.expense-dashboard-v32{display:grid;gap:12px;margin-bottom:14px;}
+.expense-dashboard-v32 .expense-total-card{background:linear-gradient(180deg,#fffaf2,#fff3e4);border:1px solid var(--line);border-radius:28px;padding:20px!important;box-shadow:0 16px 40px rgba(54,39,24,.07);}
+.expense-dashboard-v32 .expense-total-card span{font-size:13px;color:var(--muted);font-weight:900;text-transform:uppercase;letter-spacing:.1em;}
+.expense-dashboard-v32 .expense-total-card strong{font-size:clamp(30px,8vw,44px)!important;line-height:1;display:block;margin:6px 0;color:#3a2619;}
+.expense-dashboard-v32 .expense-total-card small{font-size:13px;color:var(--muted);}
+.expense-dashboard-v32 .expense-focus-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.expense-dashboard-v32 .expense-focus-card{background:#fffaf2;border:1px solid var(--line);border-radius:24px;padding:16px!important;box-shadow:0 12px 28px rgba(54,39,24,.05);}
+.expense-dashboard-v32 .expense-focus-card h3{font-size:19px!important;margin:0 0 10px;color:#3a2619;}
+.expense-dashboard-v32 .expense-focus-card p{font-size:15px!important;line-height:1.32;margin:6px 0!important;font-weight:650;}
+.expense-history-block h3{margin-top:8px;}
+.expense-history-block .transaction-scroll{max-height:48vh;overflow:auto;}
+
+@media(max-width:480px){
+  .home-brand-card.v32-watermark-home{min-height:58vh;padding:34px 14px 28px!important;border-radius:30px;}
+  .home-single-watermark{width:122vw;opacity:.15;top:45%;}
+  .home-brand-card.v32-watermark-home h1{font-size:46px!important;}
+  .home-brand-card.v32-watermark-home .home-trip-line span{font-size:12px;padding:7px 10px;}
+  .moments-sheet,.tools-sheet{padding:12px!important;border-radius:22px!important;}
+  .moments-sheet h2,.tools-sheet h2{font-size:20px!important;}
+  .moments-sheet .modal-intro,.tools-sheet .modal-intro{font-size:11px!important;}
+  .mood-grid{grid-template-columns:repeat(3,1fr)!important;gap:4px!important;}
+  .mood-btn{font-size:11px!important;padding:6px 3px!important;}
+  #momentsText{min-height:58px!important;}
+  .tools-sheet .latest-transactions{max-height:76px!important;}
+  .expense-form input,.expense-form select{min-height:32px!important;}
+  .expense-dashboard-v32 .expense-total-card{padding:16px!important;}
+  .expense-dashboard-v32 .expense-focus-grid{gap:8px;}
+  .expense-dashboard-v32 .expense-focus-card{padding:12px!important;border-radius:20px;}
+  .expense-dashboard-v32 .expense-focus-card h3{font-size:16px!important;}
+  .expense-dashboard-v32 .expense-focus-card p{font-size:12.5px!important;line-height:1.22;}
+}

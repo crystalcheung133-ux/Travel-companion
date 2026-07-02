@@ -442,3 +442,54 @@ a.pill[href*="maps.google"]{
   .expense-mini-grid p{font-size:12px;}
   .home-logo-mark{width:min(118px,36vw)!important;}
 }
+
+
+/* v3.0 Premium Experience */
+.home-premium{min-height:calc(100dvh - 108px);display:grid;align-content:center;gap:14px;padding-top:8px!important;}
+.home-brand-card.v3-hero-logo{padding:34px 22px 28px!important;border-radius:38px;background:radial-gradient(circle at 50% 18%, rgba(221,181,114,.22), transparent 34%),linear-gradient(180deg,#fffdf8 0%,#fff7ed 100%)!important;}
+.home-brand-card.v3-hero-logo:after{content:"";position:absolute;inset:auto -26% -28% -26%;height:68%;background:url('logo-latest.jpeg') center/contain no-repeat;opacity:.055;mix-blend-mode:multiply;pointer-events:none;filter:saturate(.9);}
+.home-brand-card.v3-hero-logo .home-logo-mark{width:min(228px,62vw)!important;border-radius:34px!important;opacity:.96!important;mix-blend-mode:multiply!important;filter:saturate(.98) contrast(.99) drop-shadow(0 22px 38px rgba(78,48,25,.16))!important;margin-bottom:10px!important;position:relative;z-index:1;}
+.home-brand-card.v3-hero-logo h1,.home-brand-card.v3-hero-logo p,.home-brand-card.v3-hero-logo div{position:relative;z-index:1;}
+.home-brand-card.v3-hero-logo h1{font-size:clamp(42px,11vw,78px)!important;}
+.home-tagline{letter-spacing:.19em!important;}
+.home-stats-panel{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:4px;}
+.home-stats-panel div{border:1px solid rgba(138,79,45,.18);background:rgba(255,250,242,.78);border-radius:20px;padding:12px 8px;text-align:center;box-shadow:0 10px 28px rgba(54,39,24,.06);}
+.home-stats-panel strong{display:block;font-size:24px;line-height:1;color:#5c3924;font-family:Georgia,serif;}
+.home-stats-panel span{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:800;margin-top:5px;}
+.directory-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px;}
+.directory-card{border:1px solid var(--line);background:#fffaf2;border-radius:22px;padding:15px;box-shadow:0 8px 24px rgba(54,39,24,.05);}
+.directory-card h3{font-family:Inter,system-ui,sans-serif;font-size:18px;margin:0 0 6px;color:#4a3425;}
+.directory-card p{font-size:14px;line-height:1.45;margin:6px 0;}
+.phrase-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:12px 0;}
+.phrase-grid span{border:1px solid var(--line);background:#fffaf2;border-radius:14px;padding:10px;font-weight:700;}
+.hotel-card{border:1px solid #d8c5b1;background:#fff7ed;border-radius:24px;padding:18px;margin:14px 0;box-shadow:0 12px 34px rgba(54,39,24,.06);}
+/* moments toolbar copy */
+.floating-tools .hidden-action[title="Add Moment"]::after{content:"Moment";position:absolute;right:64px;background:#fffaf2;border:1px solid var(--line);border-radius:999px;padding:7px 10px;font-size:12px;font-weight:800;color:var(--ink);opacity:0;pointer-events:none;transition:.18s;white-space:nowrap;}
+.floating-tools.open .hidden-action[title="Add Moment"]::after{opacity:1;}
+/* expenses above fold */
+.expense-total-card{padding:15px 16px!important;}
+.expense-total-card strong{font-size:22px!important;}
+.expense-mini-grid>div{padding:15px!important;}
+.expense-mini-grid h3{font-size:18px!important;color:#4a3425;}
+.expense-mini-grid p{font-size:14px!important;line-height:1.3!important;}
+.expense-history-block{max-height:48vh;overflow:auto;padding-right:4px;}
+@media(max-width:760px){
+ .home-premium{align-content:start;min-height:auto;padding-bottom:104px!important;}
+ .home-brand-card.v3-hero-logo{padding:26px 15px 22px!important;border-radius:30px;}
+ .home-brand-card.v3-hero-logo .home-logo-mark{width:min(206px,68vw)!important;border-radius:30px!important;}
+ .home-brand-card.v3-hero-logo h1{font-size:40px!important;}
+ .home-stats-panel{grid-template-columns:repeat(4,1fr);gap:7px;}
+ .home-stats-panel div{padding:10px 4px;border-radius:16px;}
+ .home-stats-panel strong{font-size:20px;}
+ .home-stats-panel span{font-size:9px;letter-spacing:.08em;}
+ .directory-grid{grid-template-columns:1fr;gap:9px;}
+ .directory-card{padding:13px;border-radius:18px;}
+ .directory-card p{font-size:13px;}
+ .phrase-grid{grid-template-columns:1fr;}
+ .expense-mini-grid{grid-template-columns:1fr 1fr!important;}
+ .expense-total-card strong{font-size:18px!important;}
+ .expense-mini-grid>div{padding:11px!important;}
+ .expense-mini-grid h3{font-size:15px!important;}
+ .expense-mini-grid p{font-size:12px!important;}
+ .expense-history-block{max-height:none;overflow:visible;}
+}

@@ -423,3 +423,19 @@ document.addEventListener('keydown', function(e){
     document.querySelectorAll('.guide-modal,.moments-modal,.unexpected-modal,.tools-modal,.mama-modal,.trip-modal').forEach(m=>m.classList.remove('show'));
   }
 });
+
+
+/* v3.0 Premium Experience overrides */
+try{
+  PLACES.general = {title:'Moments', emoji:'✨', cat:'MOMENTS', sub:'Every place has a story', desc:'每一個地方都可以留低 rating、something to say 同相片。', categoryLabel:'✨ Moments', price:'Memory', hours:'Anytime', maps:'#', address:'Saigon Companion'};
+  MOODS.splice(0, MOODS.length,
+    ['🤩','Wow'], ['😋','Delicious'], ['😵','Exhausted'], ['🔥','正到爆'],
+    ['🤯','估你唔到'], ['😶','Speechless'], ['🥲','仆街了'], ['🤬','Damn']
+  );
+  TRIP_DATA.city = {title:'🇻🇳 City', body:`<p>Ho Chi Minh City 仍然被很多人親切稱為 Saigon。它是越南最有城市能量的地方：法式殖民建築、摩托車河流、咖啡文化、設計師小店同現代餐廳全部混在一起。</p><div class='fact-grid city-facts'><div class='fact'><strong>Former name</strong>Saigon</div><div class='fact'><strong>Base</strong>District 1</div><div class='fact'><strong>Currency</strong>VND</div><div class='fact'><strong>Time zone</strong>UTC +7</div><div class='fact'><strong>Transport</strong>Grab</div><div class='fact'><strong>Late Oct</strong>Hot · humid</div></div><h3>Useful to Know</h3><ul><li>短程交通以 Grab 為主。</li><li>現金留俾小店、tips、街邊食物同 Spa。</li><li>下午戶外行程要留冷氣位。</li><li>Saigon 同 Ho Chi Minh City 兩個名稱都會見到。</li></ul><h3>Useful Vietnamese</h3><div class='phrase-grid'><span>Xin chào · 你好</span><span>Cảm ơn · 多謝</span><span>Bao nhiêu? · 幾多錢？</span><span>Không cay · 不辣</span></div>`};
+  TRIP_DATA.stay = {title:'🏨 Stay', body:`<p><strong>Fusion Original Saigon Centre</strong><br>下樓連住 Saigon Centre / Takashimaya，熱、雨、夜晚返酒店都方便。</p><div class='hotel-card'><p class='kicker'>Hotel Address</p><p><strong>Fusion Original Saigon Centre</strong><br>65 Lê Lợi, Bến Nghé, District 1, Ho Chi Minh City, Vietnam</p><div class='guide-next-row'><button class='pill' onclick="copyText('Fusion Original Saigon Centre, 65 Lê Lợi, Bến Nghé, District 1, Ho Chi Minh City, Vietnam')">📋 Copy Address</button><a class='pill' href='https://maps.google.com/?q=Fusion+Original+Saigon+Centre' target='_blank'>🗺 Open Maps</a></div></div><div class='fact-grid'><div class='fact'><strong>Room</strong>2 Bedroom Suite</div><div class='fact'><strong>Bathrooms</strong>2 bathrooms</div><div class='fact'><strong>Best for</strong>Midday reset</div><div class='fact'><strong>Nearby</strong>Maison Marou · Takashimaya</div></div>`};
+}catch(e){}
+function copyText(text){
+  if(navigator.clipboard){navigator.clipboard.writeText(text).then(()=>alert('Address copied')).catch(()=>alert(text));}
+  else alert(text);
+}

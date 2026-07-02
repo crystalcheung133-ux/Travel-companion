@@ -493,3 +493,57 @@ a.pill[href*="maps.google"]{
  .expense-mini-grid p{font-size:12px!important;}
  .expense-history-block{max-height:none;overflow:visible;}
 }
+
+
+/* v3.1 Production QA polish */
+.home-premium.home-v31{min-height:calc(100vh - 92px);display:flex;flex-direction:column;justify-content:center;gap:14px;padding-top:12px;padding-bottom:96px;}
+.home-brand-card.v31-hero-logo{position:relative;isolation:isolate;padding:30px 18px 24px!important;border-radius:38px;background:
+  radial-gradient(circle at 50% 16%, rgba(214,170,94,.23), transparent 30%),
+  linear-gradient(180deg,rgba(255,253,248,.98),rgba(255,247,237,.94))!important;overflow:hidden;}
+.home-logo-watermark{position:absolute;inset:8% -22% auto -22%;height:76%;background:url('logo-latest.jpeg') center/contain no-repeat;opacity:.075;mix-blend-mode:multiply;filter:saturate(.8) contrast(.92);-webkit-mask-image:radial-gradient(ellipse at center,#000 25%,rgba(0,0,0,.5) 54%,transparent 76%);mask-image:radial-gradient(ellipse at center,#000 25%,rgba(0,0,0,.5) 54%,transparent 76%);z-index:0;}
+.home-logo-cameo{position:relative;z-index:1;width:min(246px,70vw);height:min(186px,52vw);margin:0 auto 8px;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at center,rgba(255,250,242,.95) 0%,rgba(255,250,242,.62) 48%,rgba(255,250,242,0) 72%);}
+.home-logo-cameo:before{content:"";position:absolute;inset:8%;border-radius:50%;background:radial-gradient(circle,rgba(201,154,82,.18),transparent 68%);filter:blur(12px);}
+.home-logo-cameo .home-logo-mark{width:min(236px,68vw)!important;max-height:190px;object-fit:contain;border-radius:0!important;mix-blend-mode:multiply;opacity:.96!important;filter:saturate(.98) contrast(.98) drop-shadow(0 20px 32px rgba(88,54,27,.18))!important;-webkit-mask-image:radial-gradient(ellipse at center,#000 52%,rgba(0,0,0,.82) 68%,transparent 96%);mask-image:radial-gradient(ellipse at center,#000 52%,rgba(0,0,0,.82) 68%,transparent 96%);}
+.home-brand-card.v31-hero-logo h1,.home-brand-card.v31-hero-logo p,.home-brand-card.v31-hero-logo div:not(.home-logo-watermark):not(.home-logo-cameo){position:relative;z-index:1;}
+.home-brand-card.v31-hero-logo h1{font-size:clamp(40px,11vw,76px)!important;}
+.home-stats-panel div span{text-transform:none;}
+.directory-shortcut{padding:12px!important;}
+.directory-jump{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid var(--line);background:linear-gradient(180deg,#fffaf2,#fff4e6);border-radius:20px;padding:14px 16px;text-align:left;font:inherit;color:var(--ink);box-shadow:0 10px 28px rgba(54,39,24,.06)}
+.directory-jump small{display:block;color:var(--muted);font-size:12px;margin-top:3px;}
+.shopping-directory .lead{font-size:14px;line-height:1.55;color:var(--muted);}
+.directory-card strong{color:#7a4528;}
+.moment-button{min-width:48px!important;padding-left:14px!important;padding-right:14px!important;}
+.modal-intro{font-size:14px!important;line-height:1.5!important;margin:6px 0 14px!important;color:var(--muted)!important;}
+.expense-page-shell .page-hero{padding-bottom:10px!important;}
+.expense-dashboard-v31{display:grid;gap:10px;margin-top:0;}
+.expense-dashboard-v31 .expense-total-card{padding:16px!important;border-radius:22px!important;}
+.expense-dashboard-v31 .expense-total-card span{font-size:13px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.08em;}
+.expense-dashboard-v31 .expense-total-card strong{font-size:24px!important;line-height:1.05;display:block;margin-top:4px;}
+.expense-dashboard-v31 .expense-total-card small{color:var(--muted);font-size:12px;display:block;margin-top:4px;}
+.expense-focus-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.expense-focus-card{background:#fffaf2;border:1px solid var(--line);border-radius:22px;padding:13px;box-shadow:0 8px 22px rgba(54,39,24,.04);}
+.expense-focus-card h3{margin:0 0 8px;font-size:17px;color:#4a3425;}
+.expense-focus-card p{font-size:14px;line-height:1.28;margin:5px 0;}
+.expense-history-block{margin-top:12px;padding-top:10px;border-top:1px solid rgba(138,79,45,.18);}
+.transaction-scroll{max-height:42vh;overflow:auto;padding-right:2px;}
+.tools-sheet .latest-transactions{max-height:24vh;overflow:auto;}
+@media(max-width:520px){
+  .home-premium.home-v31{justify-content:flex-start;padding-top:8px;}
+  .home-brand-card.v31-hero-logo{padding:22px 14px 18px!important;border-radius:30px;}
+  .home-logo-cameo{width:min(224px,76vw);height:min(164px,52vw);margin-bottom:4px;}
+  .home-logo-cameo .home-logo-mark{width:min(216px,74vw)!important;}
+  .home-brand-card.v31-hero-logo h1{font-size:38px!important;}
+  .home-tagline{font-size:12px!important;}
+  .home-trip-line{gap:5px!important;font-size:12px!important;}
+  .home-stats-panel{grid-template-columns:repeat(4,1fr);gap:6px;padding:10px!important;}
+  .home-stats-panel div{padding:8px 4px!important;}
+  .home-stats-panel strong{font-size:21px!important;}
+  .home-stats-panel span{font-size:10px!important;}
+  .expense-focus-grid{grid-template-columns:1fr 1fr;gap:8px;}
+  .expense-dashboard-v31 .expense-total-card strong{font-size:21px!important;}
+  .expense-focus-card{padding:10px;border-radius:18px;}
+  .expense-focus-card h3{font-size:15px;margin-bottom:6px;}
+  .expense-focus-card p{font-size:12px;line-height:1.22;margin:4px 0;}
+  .transaction-scroll{max-height:48vh;}
+  .modal-intro{font-size:13px!important;}
+}

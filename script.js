@@ -668,14 +668,8 @@ function copyText(text){
       if(form && form.parentNode){ form.parentNode.insertBefore(holder, form.nextSibling); }
       else sheet.appendChild(holder);
     }
-    if(sheet && !sheet.querySelector('.summary-link-row')){
-      const row=document.createElement('div');
-      row.className='summary-link-row';
-      row.innerHTML='<span class="timestamp">Need the full summary?</span><a class="mini-btn" href="expenses.html">Open Summary</a>';
-      const intro=sheet.querySelector('#expenseIntro');
-      if(intro && intro.parentNode){ intro.parentNode.insertBefore(row, intro.nextSibling); }
-      else sheet.insertBefore(row, sheet.firstChild);
-    }
+    // v3.5: Bottom bar already opens the summary page, so no extra summary link inside the tool.
+    sheet?.querySelectorAll('.summary-link-row').forEach(x=>x.remove());
     renderToolTransactionHistory();
   };
   const oldSave=window.saveExpense;
@@ -685,3 +679,10 @@ function copyText(text){
   };
   document.addEventListener('DOMContentLoaded',()=>{try{renderExpenses();renderToolTransactionHistory();}catch(e){}});
 })();
+
+
+/* v3.5 guard: bottom bar is summary navigation; buttons on summary pages open tools */
+document.addEventListener('DOMContentLoaded',()=>{
+  document.querySelectorAll('.summary-link-row').forEach(x=>x.remove());
+  try{ renderExpenses(); renderMoments(); }catch(e){}
+});

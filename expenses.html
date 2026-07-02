@@ -5,9 +5,11 @@
 <div class="page-hero">
 <p class="kicker">Expenses</p>
 <h1>Expenses</h1>
-<p class="lead">公數、個人消費同結算一眼睇晒；交易紀錄留喺下面慢慢 scroll。</p>
-<button class="pill" onclick="openExpenseModal()">💸 Split Bill</button>
-</div>
+<p class="lead">公數、個人消費同結算一眼睇晒；交易紀錄喺下面，最新交易排最上。</p>
+
+<div class="page-action-row" data-v35="expense-action">
+<button class="btn primary-action" onclick="openExpenseModal()" type="button">💸 Add Expense / Split Bill</button>
+</div></div>
 <section class="prose-block">
 <div id="expensePageList"></div>
 </section>
@@ -28,17 +30,13 @@
 <a href="day4.html"><span><span class="menu-title">🏛 Day 4</span><span class="menu-sub">City Contrast<br/>2 Nov • Monday</span></span><span>›</span></a>
 <a href="day5.html"><span><span class="menu-title">✈️ Day 5</span><span class="menu-sub">Until Next Time<br/>3 Nov • Tuesday</span></span><span>›</span></a></div>
 <nav class="app-nav">
-<button class="trip-trigger" onclick="toggleTripMenu()"><span>🧳</span><small>Trip</small></button>
-<button class="guide-trigger" onclick="toggleGuideMenu()"><span>📖</span><small>Guide</small></button>
-<button class="days-trigger" onclick="toggleDays()"><span>🗓</span><small>Days</small></button>
-<button class="nav-pop-trigger" onclick="openMomentsModal('general')" type="button"><span>✨</span><small>Moments</small></button>
-<button class="nav-pop-trigger" onclick="openExpenseModal()" type="button"><span>💸</span><small>Expenses</small></button>
+<button class="trip-trigger" onclick="toggleTripMenu()" type="button"><span>🧳</span><small>Trip</small></button>
+<button class="guide-trigger" onclick="toggleGuideMenu()" type="button"><span>📖</span><small>Guide</small></button>
+<button class="days-trigger" onclick="toggleDays()" type="button"><span>🗓</span><small>Days</small></button>
+<a class="summary-link" href="moments.html"><span>✨</span><small>Moments</small></a>
+<a class="summary-link" href="expenses.html"><span>💸</span><small>Expenses</small></a>
 </nav>
-<div class="floating-tools">
-<button onclick="toggleFab()" title="Create">＋</button>
-<button class="hidden-action" onclick="openMomentsModal('general')" title="Add Moment">📸</button>
-<button class="hidden-action" onclick="openExpenseModal()" title="Split Bill">💸</button>
-</div><script src="script.js"></script><script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}</script>
+<script src="script.js"></script><script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}</script>
 <div class="trip-modal" id="tripModal"><div class="trip-sheet"><button class="trip-close" onclick="closeTripModal()" type="button">×</button><div id="tripModalContent"></div></div></div>
 <div class="guide-modal" id="guideModal"><div class="guide-sheet"><button class="guide-close" onclick="closeGuideModal()" type="button">×</button><div id="guideModalContent"></div></div></div>
 <div class="moments-modal" id="momentsModal"><div class="moments-sheet"><button class="moments-close" onclick="closeMomentsModal()" type="button">×</button><p class="kicker">Moments</p><h2 id="momentsTitle">Moment</h2><p class="lead modal-intro" id="momentsIntro">每一個地方都可以留底 rating、something to say 同相片。旅行完之後，呢度就係四位朋友嘅 memory book。</p><p><span class="status-badge" id="momentsFriend">Friend</span> <button class="mini-btn" onclick="openFriendModal()">Change Friend</button></p><div class="moments-form"><input id="momentsRating" type="hidden" value="0"/><div class="star-row"><span class="star" onclick="setStars(1)">⭐</span><span class="star" onclick="setStars(2)">⭐</span><span class="star" onclick="setStars(3)">⭐</span><span class="star" onclick="setStars(4)">⭐</span><span class="star" onclick="setStars(5)">⭐</span></div><p class="mood-help">Choose up to 2 moods</p><div class="mood-grid" id="moodGrid"></div><textarea id="momentsText" placeholder="Something to say..."></textarea><div class="photo-input">📷 Add Photo（Camera / Photo Library）</div><button class="btn" onclick="saveMoments()">Save</button></div></div></div>

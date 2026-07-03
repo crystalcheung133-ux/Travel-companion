@@ -1073,3 +1073,42 @@ h3{font-size:20px;}
 .shopping-flow-list li{margin:6px 0;}
 .route-hint{font-size:16px;line-height:1.55;color:var(--ink);background:#fff7ed;border:1px solid var(--line);border-radius:16px;padding:12px;margin:10px 0;}
 @media(max-width:760px){.route-hint{font-size:16px}.shopping-flow-list{font-size:16.5px}}
+
+
+/* v3.9.1 day2 + modal stability + outdoor readability refinements */
+.content-page .page-hero .lead,
+.expense-page-shell .page-hero .lead,
+.moments-sheet .modal-intro,
+.tools-sheet .modal-intro{
+  font-size:18px!important;
+  line-height:1.55!important;
+  font-weight:650!important;
+  color:#4b4037!important;
+}
+.page-hero .kicker{font-size:14px!important;font-weight:900!important;color:#7b4a2f!important;}
+.timeline-main h3,.prose-block h2,.guide-list-title,.menu-title{font-weight:900!important;color:#241b16!important;}
+.timeline-main p,.shopping-flow-list li,.quick-info-value,.prose-block li{font-size:17px!important;line-height:1.62!important;font-weight:650!important;color:#3b3029!important;}
+.route-hint{font-size:16px!important;line-height:1.55!important;font-weight:700!important;color:#3b3029!important;}
+.moments-modal,.tools-modal{align-items:center!important;justify-items:center!important;overflow:hidden!important;padding:12px!important;}
+.moments-sheet,.tools-sheet{
+  width:min(720px,calc(100vw - 24px))!important;
+  height:auto!important;
+  max-height:min(92svh,720px)!important;
+  overflow:auto!important;
+  padding:22px!important;
+  border-radius:28px!important;
+  transform:none!important;
+}
+.moments-sheet h2,.tools-sheet h2{font-size:28px!important;line-height:1.08!important;font-weight:900!important;margin:0 48px 6px 0!important;}
+.moments-form textarea,#unexpectedText{min-height:96px!important;max-height:112px!important;font-size:16px!important;line-height:1.45!important;font-weight:650!important;}
+.expense-form input,.expense-form select,.moments-form textarea,#unexpectedText,.tools-sheet input,.tools-sheet select,.tools-sheet textarea{font-size:16px!important;}
+.mood-btn{font-size:15px!important;font-weight:800!important;min-height:40px!important;}
+.star-row .star{font-size:26px!important;}
+.moments-sheet .btn,.tools-sheet .btn{font-size:16px!important;font-weight:900!important;min-height:44px!important;}
+@media(max-width:480px){
+  .moments-sheet,.tools-sheet{width:calc(100vw - 18px)!important;max-height:90svh!important;padding:18px!important;border-radius:24px!important;}
+  .moments-sheet h2,.tools-sheet h2{font-size:25px!important;}
+  .moments-sheet .modal-intro,.tools-sheet .modal-intro{font-size:15.5px!important;line-height:1.42!important;}
+  .moments-form textarea,#unexpectedText{min-height:82px!important;max-height:96px!important;}
+  .mood-btn{font-size:13.5px!important;min-height:36px!important;}
+}

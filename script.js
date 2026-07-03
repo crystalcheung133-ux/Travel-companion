@@ -837,26 +837,41 @@ document.addEventListener('DOMContentLoaded',()=>{
   const match = location.pathname.match(/day([1-5])\.html$/);
   if(!match) return;
   const current = Number(match[1]);
-  let startX = 0, startY = 0, startT = 0;
+  let startX = 0, startY = 0, active = false, fired = false;
   function isInteractive(el){return !!el.closest('a,button,input,select,textarea,label,.mini-menu,.guide-modal,.trip-modal,.moments-modal,.tools-modal,.mama-modal');}
+  function go(next){
+    if(fired || next === current) return;
+    fired = true;
+    try{ sessionStorage.setItem('daySwipeTop','1'); }catch(e){}
+    window.location.assign(`day${next}.html`);
+  }
   document.addEventListener('touchstart', function(e){
-    if(!e.touches || e.touches.length !== 1 || isInteractive(e.target)) return;
+    if(!e.touches || e.touches.length !== 1 || isInteractive(e.target)) { active=false; return; }
     startX = e.touches[0].clientX;
     startY = e.touches[0].clientY;
-    startT = Date.now();
+    active = true;
+    fired = false;
+  }, {passive:true});
+  document.addEventListener('touchmove', function(e){
+    if(!active || fired || !e.touches || e.touches.length !== 1) return;
+    const dx = e.touches[0].clientX - startX;
+    const dy = e.touches[0].clientY - startY;
+    const absX = Math.abs(dx), absY = Math.abs(dy);
+    if(absX < 56 || absX < absY * 1.7) return;
+    if(dx < 0 && current < 5) go(current + 1);
+    if(dx > 0 && current > 1) go(current - 1);
   }, {passive:true});
   document.addEventListener('touchend', function(e){
-    if(!startT || !e.changedTouches || e.changedTouches.length !== 1) return;
+    if(!active || fired || !e.changedTouches || e.changedTouches.length !== 1) { active=false; return; }
     const dx = e.changedTouches[0].clientX - startX;
     const dy = e.changedTouches[0].clientY - startY;
     const absX = Math.abs(dx), absY = Math.abs(dy);
-    startT = 0;
-    if(absX < 72 || absX < absY * 1.45) return;
-    let next = current;
-    if(dx < 0 && current < 5) next = current + 1;
-    if(dx > 0 && current > 1) next = current - 1;
-    if(next !== current){
-      window.location.href = `day${next}.html`;
-    }
+    active = false;
+    if(absX < 56 || absX < absY * 1.7) return;
+    if(dx < 0 && current < 5) go(current + 1);
+    if(dx > 0 && current > 1) go(current - 1);
   }, {passive:true});
+  window.addEventListener('pageshow', function(){
+    try{ if(sessionStorage.getItem('daySwipeTop')==='1'){ sessionStorage.removeItem('daySwipeTop'); window.scrollTo(0,0); } }catch(e){}
+  });
 })();

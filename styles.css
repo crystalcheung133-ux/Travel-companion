@@ -1365,3 +1365,27 @@ body.moments-page .primary-action{background:#b76c78!important;color:#fffaf7!imp
 body.expenses-page .page-hero, body.expenses-page .module-hero{background:linear-gradient(180deg, rgba(242,249,244,.98), rgba(231,242,234,.96))!important;border-color:rgba(100,139,113,.30)!important;}
 body.expenses-page .page-hero .kicker, body.expenses-page .module-hero .kicker{color:#527a5d!important;}
 body.expenses-page .primary-action{background:#678f72!important;color:#fffaf7!important;border-color:#678f72!important;}
+
+
+/* v3.9.4 hotfix: restore guide modal scrolling, force Moments pink theme */
+.guide-modal .guide-sheet{
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  -webkit-overflow-scrolling:touch!important;
+  max-height:calc(100dvh - 20px)!important;
+}
+html body.moments-page main .page-hero.module-hero,
+html body.moments-page .page-hero,
+html body.moments-page .module-hero{
+  background:linear-gradient(180deg, rgba(255,244,246,.99), rgba(253,235,239,.97))!important;
+  border-color:rgba(202,117,132,.36)!important;
+}
+html body.moments-page .page-hero .kicker,
+html body.moments-page .module-hero .kicker{color:#9a5361!important;}
+html body.moments-page .primary-action,
+html body.moments-page .btn.primary-action,
+.moments-sheet .btn{
+  background:#b76c78!important;
+  color:#fffaf7!important;
+  border-color:#b76c78!important;
+}

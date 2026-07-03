@@ -2090,3 +2090,15 @@ html body.expenses-page .page-action-row .primary-action{
   font-size:15px!important;
   font-weight:900!important;
 }
+
+/* v3.9.6d Paid-by clear display */
+.paid-by-hidden-select{position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important;}
+.paid-by-panel{margin:8px 0 14px;}
+.paid-by-display{min-height:58px;border:2px solid rgba(105,146,112,.75);border-radius:22px;background:rgba(255,250,242,.92);display:flex;align-items:center;justify-content:space-between;gap:14px;padding:0 18px;box-sizing:border-box;}
+.paid-by-current{font-weight:900;font-size:22px;color:#2d241f;line-height:1.1;}
+.paid-by-change{border:1.5px solid rgba(105,146,112,.8);background:rgba(228,242,225,.95);color:#2d4a34;border-radius:999px;padding:10px 15px;font-weight:900;font-size:16px;min-height:42px;}
+.paid-by-choices{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
+.paid-by-choices[hidden]{display:none!important;}
+.paid-by-choices button{border:1.5px solid rgba(214,194,174,.9);background:rgba(255,250,242,.96);border-radius:18px;padding:13px 10px;font-size:18px;font-weight:900;color:#2d241f;text-align:center;}
+.paid-by-choices button.active{background:rgba(228,242,225,.98);border-color:#699270;box-shadow:0 0 0 3px rgba(105,146,112,.14) inset;}
+@media(max-width:420px){.paid-by-current{font-size:20px}.paid-by-change{font-size:15px;padding:9px 13px}.paid-by-choices button{font-size:17px}}

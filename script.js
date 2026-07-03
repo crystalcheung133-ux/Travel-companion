@@ -1006,3 +1006,113 @@ document.addEventListener('DOMContentLoaded',()=>{
     simplifyMomentsAuthor();
   });
 })();
+
+/* v3.9.6d Final Paid-by UX Fix: replace blank select with clear current-user display + Change chips */
+(function(){
+  const DEFAULT_FRIEND='crystal';
+  const FRIEND_ORDER=['christal','crystal','mero','vivian'];
+  function currentUser(){
+    try{return (typeof getFriend==='function' ? getFriend() : localStorage.getItem('saigon_friend')) || DEFAULT_FRIEND;}catch(e){return DEFAULT_FRIEND;}
+  }
+  function labelFor(k){
+    try{return (typeof FRIENDS!=='undefined' && FRIENDS[k]) ? FRIENDS[k] : ({christal:'🧸 Christal',crystal:'👓 Crystal',mero:'✝️ Mero',vivian:'👟 Vivian'}[k]||'👓 Crystal');}
+    catch(e){return '👓 Crystal';}
+  }
+  function setSelectValue(id,value){
+    const el=document.getElementById(id); if(!el) return;
+    el.value=value;
+    Array.from(el.options||[]).forEach(opt=>{ opt.selected=(opt.value===value); });
+    el.dispatchEvent(new Event('change',{bubbles:true}));
+  }
+  function getPaidBy(){return document.getElementById('expensePaidBy')?.value || currentUser();}
+  function updatePaidByDisplay(){
+    const display=document.getElementById('paidByDisplayName');
+    const hidden=document.getElementById('expensePaidBy');
+    const paid=hidden?.value || currentUser();
+    if(display) display.textContent=labelFor(paid);
+    document.querySelectorAll('#paidByChoices button').forEach(btn=>{
+      btn.classList.toggle('active', btn.dataset.friend===paid);
+    });
+  }
+  function ensurePaidByUI(){
+    const select=document.getElementById('expensePaidBy');
+    if(!select || document.getElementById('paidByDisplay')) { updatePaidByDisplay(); return; }
+    select.classList.add('paid-by-hidden-select');
+    select.setAttribute('aria-hidden','true');
+    select.tabIndex=-1;
+    const panel=document.createElement('div');
+    panel.className='paid-by-panel';
+    panel.innerHTML=`
+      <div class="paid-by-display" id="paidByDisplay">
+        <span class="paid-by-current" id="paidByDisplayName">${labelFor(select.value||currentUser())}</span>
+        <button type="button" class="paid-by-change" id="paidByChangeButton">Change</button>
+      </div>
+      <div class="paid-by-choices" id="paidByChoices" hidden>
+        ${FRIEND_ORDER.map(k=>`<button type="button" data-friend="${k}">${labelFor(k)}</button>`).join('')}
+      </div>`;
+    select.insertAdjacentElement('afterend', panel);
+    const change=panel.querySelector('#paidByChangeButton');
+    const choices=panel.querySelector('#paidByChoices');
+    change?.addEventListener('click',()=>{
+      choices.hidden=!choices.hidden;
+      updatePaidByDisplay();
+    });
+    choices?.querySelectorAll('button').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        setSelectValue('expensePaidBy', btn.dataset.friend);
+        try{ if(typeof syncConsumedIfAuto==='function') syncConsumedIfAuto(); }catch(e){}
+        choices.hidden=true;
+        updatePaidByDisplay();
+      });
+    });
+    select.addEventListener('change', updatePaidByDisplay);
+    updatePaidByDisplay();
+  }
+  function resetPaidByToCurrentUser(){
+    ensurePaidByUI();
+    setSelectValue('expensePaidBy', currentUser());
+    const consumed=document.getElementById('expenseConsumedBy');
+    if(consumed){ consumed.dataset.manual='false'; setSelectValue('expenseConsumedBy', currentUser()); }
+    updatePaidByDisplay();
+  }
+
+  const prevOpen=window.openExpenseModal;
+  window.openExpenseModal=function(){
+    if(typeof prevOpen==='function') prevOpen.apply(this,arguments);
+    ensurePaidByUI();
+    resetPaidByToCurrentUser();
+  };
+  const prevReset=window.resetExpenseForm;
+  window.resetExpenseForm=function(){
+    if(typeof prevReset==='function') prevReset.apply(this,arguments);
+    ensurePaidByUI();
+    resetPaidByToCurrentUser();
+  };
+  const prevEdit=window.editExpense;
+  window.editExpense=function(i){
+    if(typeof prevEdit==='function') prevEdit.apply(this,arguments);
+    ensurePaidByUI();
+    try{
+      const arr=JSON.parse(localStorage.getItem('expenses')||'[]');
+      const e=arr[i];
+      if(e && e.paidBy) setSelectValue('expensePaidBy', e.paidBy);
+    }catch(e){}
+    updatePaidByDisplay();
+  };
+  const prevSetFriend=window.setFriend;
+  window.setFriend=function(k){
+    if(typeof prevSetFriend==='function') prevSetFriend.apply(this,arguments);
+    if(document.getElementById('expenseModal')?.classList.contains('show')) resetPaidByToCurrentUser();
+  };
+  const prevSave=window.saveExpense;
+  window.saveExpense=function(){
+    ensurePaidByUI();
+    // Make sure hidden select always has a real payer before old save logic reads it.
+    if(!getPaidBy()) setSelectValue('expensePaidBy', currentUser());
+    const result = (typeof prevSave==='function') ? prevSave.apply(this,arguments) : undefined;
+    // Old save keeps popup open in v3.9.6c; after save, restore current user for the next entry.
+    setTimeout(()=>{ if(document.getElementById('expenseModal')?.classList.contains('show')) resetPaidByToCurrentUser(); },80);
+    return result;
+  };
+  document.addEventListener('DOMContentLoaded',()=>{ ensurePaidByUI(); resetPaidByToCurrentUser(); });
+})();

@@ -972,3 +972,104 @@ body:has(#tripModal) .trip-card,.trip-sheet{border-color:rgba(112,133,91,.28)!im
   .live-icon{font-size:18px;}
   .page-hero{padding:13px 13px 12px;}
 }
+
+
+/* v3.8 Moments edit + stronger typography + deeper monogram watermark */
+.v37-dashboard-home .home-single-watermark,
+.home-single-watermark{
+  opacity:.145!important;
+  filter:saturate(1.05) contrast(1.08)!important;
+}
+@media(max-width:520px){
+  .v37-dashboard-home .home-single-watermark,
+  .home-single-watermark{opacity:.155!important;}
+}
+.moments-entry{
+  border:1px solid rgba(183,107,82,.22)!important;
+  background:linear-gradient(180deg,rgba(255,248,244,.96),rgba(255,252,248,.92))!important;
+}
+.moments-entry strong{
+  display:block;
+  font-size:18px!important;
+  line-height:1.22;
+  font-weight:950!important;
+  color:#38261f!important;
+  margin-bottom:4px;
+}
+.moments-entry .timestamp{
+  font-weight:800!important;
+  color:#7a5f50!important;
+}
+.moment-copy{
+  font-size:16px!important;
+  line-height:1.42;
+  font-weight:750!important;
+  color:#2f251f!important;
+  margin-top:6px!important;
+}
+.moment-mood,.moment-stars{
+  font-size:15px!important;
+  font-weight:850!important;
+  margin:5px 0!important;
+}
+.entry-actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:10px;
+}
+.entry-actions .mini-btn{
+  min-height:36px;
+  padding:8px 12px;
+  font-weight:850;
+}
+.page-hero h1,.prose-block h2,.section-title,.expense-card strong,.settlement-card strong{
+  font-weight:950!important;
+}
+.page-hero .lead,.prose-block p,.guide-sheet p,.tools-sheet p,.moments-sheet p{
+  font-weight:650;
+}
+
+
+/* v3.9 Outdoor Readability Pass
+   Higher contrast, larger text and clearer tap targets for outdoor travel use. */
+:root{
+  --ink:#231d18;
+  --muted:#3f362f;
+  --line:#d2bea9;
+  --accent:#7a3f22;
+}
+body{font-size:17.5px;line-height:1.72;font-weight:500;-webkit-text-size-adjust:100%;}
+p,li,.lead,.timeline-main p,.guide-list-sub,.menu-sub,.timestamp,.quick-info-value{color:var(--muted);font-weight:560;}
+.lead{font-size:18.5px;line-height:1.68;}
+h1,h2,h3,.guide-list-title,.menu-title,.timeline-time,.timeline-main h3,.brand,.quick-info-label{font-weight:800;color:var(--ink);}
+h1{letter-spacing:-.02em;}
+h2{font-size:42px;}
+h3{font-size:20px;}
+.kicker{font-size:14px;font-weight:850;color:var(--accent);}
+.btn,.pill,.mini-btn,.start-link,.timeline-actions button,.timeline-actions a,.friend-pill,.category-pop-list button{font-weight:800;color:var(--ink);}
+.btn,.pill,.start-link{min-height:50px;padding:14px 18px;}
+.mini-btn{min-height:44px;padding:11px 14px;}
+.app-nav small{font-size:13px;font-weight:850;color:#fff;}
+.app-nav a,.app-nav button{color:#fff;}
+.quick-info-card,.dash-card,.prose-block,.trip-card,.timeline-item,.expense-card,.moments-entry{border-color:#d4bea7;box-shadow:0 12px 44px rgba(54,39,24,.075);}
+.quick-info-label,.timestamp{opacity:1;}
+.moments-form textarea,.expense-form input,.expense-form select,textarea{font-size:17px;color:var(--ink);font-weight:560;}
+.mood-chip,.status-badge,.timeline-status{font-weight:760;color:var(--ink);}
+@media(max-width:760px){
+  body{font-size:17px;line-height:1.7;}
+  .lead{font-size:18px;}
+  .timeline-main h3{font-size:19px;}
+  .timeline-actions button,.timeline-actions a{font-size:15px;min-height:48px;}
+  .content-page,.section{padding-left:16px;padding-right:16px;}
+}
+
+
+/* v3.9 Day 2 flow and page consistency */
+.expense-page-shell .page-hero{display:block;margin-bottom:18px;}
+.expense-page-shell .page-action-row,.page-action-row{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;}
+.primary-action{font-size:17px;font-weight:850;box-shadow:0 10px 30px rgba(49,95,78,.12);}
+.shopping-flow-list{margin:10px 0 12px;padding-left:22px;color:var(--ink);font-weight:650;}
+.shopping-flow-list li{margin:6px 0;}
+.route-hint{font-size:16px;line-height:1.55;color:var(--ink);background:#fff7ed;border:1px solid var(--line);border-radius:16px;padding:12px;margin:10px 0;}
+@media(max-width:760px){.route-hint{font-size:16px}.shopping-flow-list{font-size:16.5px}}

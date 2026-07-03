@@ -47,7 +47,7 @@ body.home-bg::before{
   content:"";
   position:fixed;
   inset:0;
-  background:url("logo-latest.jpeg") center 120px/70% auto no-repeat;
+  background:url("logo-watermark-monogram.png") center 120px/70% auto no-repeat;
   opacity:.055;
   pointer-events:none;
   z-index:-1;
@@ -116,7 +116,7 @@ body::after{
   content:"";
   position:fixed;
   inset:0;
-  background-image:url("logo-latest.jpeg");
+  background-image:url("logo-watermark-monogram.png");
   background-repeat:repeat;
   background-size:150px 150px;
   opacity:.045;
@@ -134,7 +134,7 @@ body.home-bg::before{
   content:"";
   position:absolute;
   inset:0;
-  background-image:url("logo-latest.jpeg");
+  background-image:url("logo-watermark-monogram.png");
   background-repeat:repeat;
   background-size:95px 95px;
   opacity:.035;
@@ -177,7 +177,7 @@ body{
   background-color:var(--bg)!important;
   background-image:
     linear-gradient(rgba(244,237,227,.90), rgba(244,237,227,.90)),
-    url("logo-latest.jpeg")!important;
+    url("logo-watermark-monogram.png")!important;
   background-repeat:repeat!important;
   background-size:auto, 140px 140px!important;
   background-position:center center!important;
@@ -190,7 +190,7 @@ body.home-bg::before{
   background-color:var(--card)!important;
   background-image:
     linear-gradient(rgba(255,253,248,.94), rgba(255,253,248,.94)),
-    url("logo-latest.jpeg")!important;
+    url("logo-watermark-monogram.png")!important;
   background-repeat:repeat!important;
   background-size:auto, 92px 92px!important;
   background-position:center center!important;
@@ -447,7 +447,7 @@ a.pill[href*="maps.google"]{
 /* v3.0 Premium Experience */
 .home-premium{min-height:calc(100dvh - 108px);display:grid;align-content:center;gap:14px;padding-top:8px!important;}
 .home-brand-card.v3-hero-logo{padding:34px 22px 28px!important;border-radius:38px;background:radial-gradient(circle at 50% 18%, rgba(221,181,114,.22), transparent 34%),linear-gradient(180deg,#fffdf8 0%,#fff7ed 100%)!important;}
-.home-brand-card.v3-hero-logo:after{content:"";position:absolute;inset:auto -26% -28% -26%;height:68%;background:url('logo-latest.jpeg') center/contain no-repeat;opacity:.055;mix-blend-mode:multiply;pointer-events:none;filter:saturate(.9);}
+.home-brand-card.v3-hero-logo:after{content:"";position:absolute;inset:auto -26% -28% -26%;height:68%;background:url('logo-watermark-monogram.png') center/contain no-repeat;opacity:.055;mix-blend-mode:multiply;pointer-events:none;filter:saturate(.9);}
 .home-brand-card.v3-hero-logo .home-logo-mark{width:min(228px,62vw)!important;border-radius:34px!important;opacity:.96!important;mix-blend-mode:multiply!important;filter:saturate(.98) contrast(.99) drop-shadow(0 22px 38px rgba(78,48,25,.16))!important;margin-bottom:10px!important;position:relative;z-index:1;}
 .home-brand-card.v3-hero-logo h1,.home-brand-card.v3-hero-logo p,.home-brand-card.v3-hero-logo div{position:relative;z-index:1;}
 .home-brand-card.v3-hero-logo h1{font-size:clamp(42px,11vw,78px)!important;}
@@ -500,7 +500,7 @@ a.pill[href*="maps.google"]{
 .home-brand-card.v31-hero-logo{position:relative;isolation:isolate;padding:30px 18px 24px!important;border-radius:38px;background:
   radial-gradient(circle at 50% 16%, rgba(214,170,94,.23), transparent 30%),
   linear-gradient(180deg,rgba(255,253,248,.98),rgba(255,247,237,.94))!important;overflow:hidden;}
-.home-logo-watermark{position:absolute;inset:8% -22% auto -22%;height:76%;background:url('logo-latest.jpeg') center/contain no-repeat;opacity:.075;mix-blend-mode:multiply;filter:saturate(.8) contrast(.92);-webkit-mask-image:radial-gradient(ellipse at center,#000 25%,rgba(0,0,0,.5) 54%,transparent 76%);mask-image:radial-gradient(ellipse at center,#000 25%,rgba(0,0,0,.5) 54%,transparent 76%);z-index:0;}
+.home-logo-watermark{position:absolute;inset:8% -22% auto -22%;height:76%;background:url('logo-watermark-monogram.png') center/contain no-repeat;opacity:.075;mix-blend-mode:multiply;filter:saturate(.8) contrast(.92);-webkit-mask-image:radial-gradient(ellipse at center,#000 25%,rgba(0,0,0,.5) 54%,transparent 76%);mask-image:radial-gradient(ellipse at center,#000 25%,rgba(0,0,0,.5) 54%,transparent 76%);z-index:0;}
 .home-logo-cameo{position:relative;z-index:1;width:min(246px,70vw);height:min(186px,52vw);margin:0 auto 8px;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at center,rgba(255,250,242,.95) 0%,rgba(255,250,242,.62) 48%,rgba(255,250,242,0) 72%);}
 .home-logo-cameo:before{content:"";position:absolute;inset:8%;border-radius:50%;background:radial-gradient(circle,rgba(201,154,82,.18),transparent 68%);filter:blur(12px);}
 .home-logo-cameo .home-logo-mark{width:min(236px,68vw)!important;max-height:190px;object-fit:contain;border-radius:0!important;mix-blend-mode:multiply;opacity:.96!important;filter:saturate(.98) contrast(.98) drop-shadow(0 20px 32px rgba(88,54,27,.18))!important;-webkit-mask-image:radial-gradient(ellipse at center,#000 52%,rgba(0,0,0,.82) 68%,transparent 96%);mask-image:radial-gradient(ellipse at center,#000 52%,rgba(0,0,0,.82) 68%,transparent 96%);}

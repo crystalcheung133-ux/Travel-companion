@@ -291,7 +291,7 @@ document.addEventListener('DOMContentLoaded',()=>{updateFriendLabels();renderMom
 
 
 
-const TRIP_DATA = {"checklist": {"title": "✅ Checklist", "body": "<div class='checklist-mini'><label class='check-row'><input type='checkbox' data-check onchange='saveChecklist()'> Passport</label><label class='check-row'><input type='checkbox' data-check onchange='saveChecklist()'> E-Visa</label><label class='check-row'><input type='checkbox' data-check onchange='saveChecklist()'> Travel Insurance</label><label class='check-row'><input type='checkbox' data-check onchange='saveChecklist()'> Credit Card</label><label class='check-row'><input type='checkbox' data-check onchange='saveChecklist()'> AUD 500 Cash</label><label class='check-row'><input type='checkbox' data-check onchange='saveChecklist()'> eSIM</label><label class='check-row'><input type='checkbox' data-check onchange='saveChecklist()'> Grab App</label><label class='check-row'><input type='checkbox' data-check onchange='saveChecklist()'> Offline Google Maps</label><label class='check-row'><input type='checkbox' data-check onchange='saveChecklist()'> Power Bank</label><label class='check-row'><input type='checkbox' data-check onchange='saveChecklist()'> Online Check-in</label><div class='ready-box' id='readyBox'><h2>✈ WE ARE READY</h2><p>Let's Go!</p></div></div>"}, "city": {"title": "🇻🇳 City", "body": "<p>胡志明市係越南最大城市同經濟中心。以前叫 Saigon，1975 年越南統一後改名 Ho Chi Minh City。</p><div class='fact-grid'><div class='fact'><strong>人口</strong>約 900 萬</div><div class='fact'><strong>時區</strong>GMT +7</div></div>"}, "emergency": {"title": "☎️ Emergency", "body": "<ul><li>Police：113</li><li>Fire：114</li><li>Ambulance：115</li><li>Australia Consulate-General：Vincom Center, 47 Lý Tự Trọng, District 1</li><li>Hotel：Fusion Original Saigon Centre</li><li>Hotel Phone：+84 28 3822 2222（出發前再確認）</li></ul>"}, "flights": {"title": "✈️ Flights", "body": "<div class='fact-grid'><div class='fact'><strong>Outbound · 30 Oct • Friday</strong>VietJet VJ082<br>MEL 01:30 → SGN 05:55<br>1 × 7kg carry-on<br>1 × 20kg checked</div><div class='fact'><strong>Return · 3 Nov • Tuesday</strong>Vietnam Airlines VN781<br>SGN 21:10 → MEL 09:25 +1<br>1 × 7kg carry-on<br>1 × 20kg checked</div></div>"}, "money": {"title": "💵 Money", "body": "<p>信用卡為主，AUD 500 cash 作 backup。小店、街邊食店、tips、market 仍然建議有現金。</p><div class='exchange-card'><p class='kicker'>Quick Exchange Reference</p><h3>1 AUD ≈ 18,126.43 VND</h3><p class='timestamp'>Approximate reference rate · 02/07/2026</p><div class='exchange-grid'><div><strong>AUD 10</strong><span>≈ 181k VND</span></div><div><strong>AUD 20</strong><span>≈ 363k VND</span></div><div><strong>AUD 50</strong><span>≈ 906k VND</span></div><div><strong>AUD 100</strong><span>≈ 1.81m VND</span></div><div><strong>AUD 200</strong><span>≈ 3.63m VND</span></div><div><strong>AUD 500</strong><span>≈ 9.06m VND</span></div></div></div><p class='timestamp'>實際匯率以 XE、銀行或現場找換價為準。</p>"}, "stay": {"title": "🏨 Stay", "body": "<p><strong>Fusion Original Saigon Centre</strong><br>65 Lê Lợi, Bến Nghé, District 1, Ho Chi Minh City</p><p><a class='pill' href='https://maps.google.com/?q=Fusion+Original+Saigon+Centre' target='_blank'>🗺 Maps</a></p>"}, "tips": {"title": "⚠️ Tips", "body": "<ul><li>短程交通以 Grab 為主。</li><li>過馬路保持穩定步速，唔好突然停低。</li><li>人多地方手機同袋要放前面。</li><li>Spa tips 唔係必須，但服務好可以酌量俾。</li></ul>"}, "weather": {"title": "☀️ Weather", "body": "<p>10月尾天氣通常炎熱潮濕，大約 29–33°C。下午可能有短暫驟雨。</p>"}};
+const TRIP_DATA = {"checklist": {"title": "✅ Checklist", "body": "<div class='checklist-mini'><label class='check-row'><input type='checkbox' data-check onchange='saveChecklist()'> Passport</label><label class='check-row'><input type='checkbox' data-check onchange='saveChecklist()'> E-Visa</label><label class='check-row'><input type='checkbox' data-check onchange='saveChecklist()'> Travel Insurance</label><label class='check-row'><input type='checkbox' data-check onchange='saveChecklist()'> Credit Card</label><label class='check-row'><input type='checkbox' data-check onchange='saveChecklist()'> AUD 500 Cash</label><label class='check-row'><input type='checkbox' data-check onchange='saveChecklist()'> eSIM</label><label class='check-row'><input type='checkbox' data-check onchange='saveChecklist()'> Grab App</label><label class='check-row'><input type='checkbox' data-check onchange='saveChecklist()'> Offline Google Maps</label><label class='check-row'><input type='checkbox' data-check onchange='saveChecklist()'> Power Bank</label><label class='check-row'><input type='checkbox' data-check onchange='saveChecklist()'> Online Check-in</label><div class='ready-box' id='readyBox'><h2>✈ WE ARE READY</h2><p>Let's Go!</p></div></div>"}, "city": {"title": "🇻🇳 City", "body": "<p>胡志明市係越南最大城市同經濟中心。以前叫 Saigon，1975 年越南統一後改名 Ho Chi Minh City。</p><div class='fact-grid'><div class='fact'><strong>人口</strong>約 900 萬</div><div class='fact'><strong>時區</strong>GMT +7</div></div>"}, "emergency": {"title": "☎️ Emergency", "body": "<ul><li>Police：113</li><li>Fire：114</li><li>Ambulance：115</li><li>Australia Consulate-General：Vincom Center, 47 Lý Tự Trọng, District 1</li><li>Hotel：Fusion Original Saigon Centre</li><li>Hotel Phone：+84 28 3622 2265</li></ul>"}, "flights": {"title": "✈️ Flights", "body": "<div class='fact-grid'><div class='fact'><strong>Outbound · 30 Oct • Friday</strong>VietJet VJ082<br>MEL 01:30 → SGN 05:55<br>1 × 7kg carry-on<br>1 × 20kg checked</div><div class='fact'><strong>Return · 3 Nov • Tuesday</strong>Vietnam Airlines VN781<br>SGN 21:10 → MEL 09:25 +1<br>1 × 7kg carry-on<br>1 × 20kg checked</div></div>"}, "money": {"title": "💵 Money", "body": "<p>信用卡為主，AUD 500 cash 作 backup。小店、街邊食店、tips、market 仍然建議有現金。</p><div class='exchange-card'><p class='kicker'>Quick Exchange Reference</p><h3>1 AUD ≈ 18,126.43 VND</h3><p class='timestamp'>Approximate reference rate · 02/07/2026</p><div class='exchange-grid'><div><strong>AUD 10</strong><span>≈ 181k VND</span></div><div><strong>AUD 20</strong><span>≈ 363k VND</span></div><div><strong>AUD 50</strong><span>≈ 906k VND</span></div><div><strong>AUD 100</strong><span>≈ 1.81m VND</span></div><div><strong>AUD 200</strong><span>≈ 3.63m VND</span></div><div><strong>AUD 500</strong><span>≈ 9.06m VND</span></div></div></div><p class='timestamp'>實際匯率以 XE、銀行或現場找換價為準。</p>"}, "stay": {"title": "🏨 Stay", "body": "<p><strong>Fusion Original Saigon Centre</strong><br>65 Lê Lợi, Bến Nghé, District 1, Ho Chi Minh City</p><p><a class='pill' href='https://maps.google.com/?q=Fusion+Original+Saigon+Centre' target='_blank'>🗺 Maps</a></p>"}, "tips": {"title": "⚠️ Tips", "body": "<ul><li>短程交通以 Grab 為主。</li><li>過馬路保持穩定步速，唔好突然停低。</li><li>人多地方手機同袋要放前面。</li><li>Spa tips 唔係必須，但服務好可以酌量俾。</li></ul>"}, "weather": {"title": "☀️ Weather", "body": "<p>10月尾天氣通常炎熱潮濕，大約 29–33°C。下午可能有短暫驟雨。</p>"}};
 const TRIP_ORDER = ["checklist", "city", "emergency", "flights", "money", "stay", "tips", "weather"];
 
 function openTripCard(key) {
@@ -686,3 +686,92 @@ document.addEventListener('DOMContentLoaded',()=>{
   document.querySelectorAll('.summary-link-row').forEach(x=>x.remove());
   try{ renderExpenses(); renderMoments(); }catch(e){}
 });
+
+
+/* v3.6 production polish: stay details, checklist sizing hooks, expense CTA wording, save returns to summary */
+(function(){
+  const stayBody = `<p><strong>Fusion Original Saigon Centre</strong><br>今次四人行的城市 base。位置連住 Saigon Centre / Takashimaya，落雨、太熱或者夜晚返酒店都方便。</p><div class='hotel-card'><p class='kicker'>Hotel Address</p><p><strong>Fusion Original Saigon Centre</strong><br>65 Đường Lê Lợi<br>Takashimaya Saigon Centre<br>District 1, Ho Chi Minh City, Vietnam</p><div class='guide-next-row'><button class='pill' onclick="copyText('Fusion Original Saigon Centre, 65 Đường Lê Lợi, Takashimaya Saigon Centre, District 1, Ho Chi Minh City, Vietnam')">📋 Copy Address</button><a class='pill' href='https://maps.google.com/?q=Fusion+Original+Saigon+Centre+65+Le+Loi' target='_blank'>🗺 Open Maps</a></div></div><div class='fact-grid hotel-facts'><div class='fact'><strong>Phone</strong><a href='tel:+842836222265'>+84 28 3622 2265</a></div><div class='fact'><strong>Check-in</strong>2:00 pm – 12:00 am</div><div class='fact'><strong>Check-out</strong>Before 12:00 pm</div><div class='fact'><strong>Room</strong>2 Bedroom Suite</div></div>`;
+  if (typeof TRIP_DATA !== 'undefined') {
+    TRIP_DATA.stay = {title:'🏨 Stay', body: stayBody};
+    if (TRIP_DATA.emergency) TRIP_DATA.emergency.body = TRIP_DATA.emergency.body.replace(/Hotel Phone：[^<]+/,'Hotel Phone：+84 28 3622 2265');
+  }
+  function polishExpenseCopy(){
+    document.querySelectorAll('button,a').forEach(el=>{
+      if((el.textContent||'').includes('Add Expense') || (el.textContent||'').includes('Split Bill')){
+        el.textContent='💰 What did we spend?';
+      }
+    });
+    const title=document.getElementById('expenseModalTitle'); if(title) title.textContent='💰 What did we spend?';
+    const intro=document.getElementById('expenseIntro'); if(intro) intro.textContent='記低每一筆公數或個人消費，系統會自動計 Personal Spend 同 Settlement。';
+    const save=document.getElementById('expenseSaveButton'); if(save) save.textContent='Save';
+  }
+  const oldOpenExpense = window.openExpenseModal;
+  window.openExpenseModal = function(){
+    if(typeof oldOpenExpense === 'function') oldOpenExpense();
+    setTimeout(polishExpenseCopy,0);
+  };
+  const oldSaveExpense = window.saveExpense;
+  window.saveExpense = function(){
+    if(typeof oldSaveExpense === 'function') oldSaveExpense();
+    try{ renderExpenses(); }catch(e){}
+    setTimeout(()=>{ try{ closeExpenseModal(); renderExpenses(); }catch(e){} },250);
+  };
+  document.addEventListener('DOMContentLoaded',polishExpenseCopy);
+})();
+
+/* v3.7 Design System: expense save stays in tool for multiple entries */
+(function(){
+  function readJsonV37(key, fallback){try{return JSON.parse(localStorage.getItem(key)||JSON.stringify(fallback));}catch(e){return fallback;}}
+  function writeJsonV37(key, value){localStorage.setItem(key, JSON.stringify(value));}
+  function ensureSavedNote(){
+    const sheet=document.querySelector('#expenseModal .tools-sheet');
+    if(!sheet) return null;
+    let note=document.getElementById('expenseSavedNote');
+    if(!note){
+      note=document.createElement('div'); note.id='expenseSavedNote'; note.className='expense-saved-note'; note.textContent='✓ Expense saved. Ready for the next one.';
+      const form=sheet.querySelector('.expense-form');
+      if(form) sheet.insertBefore(note, form); else sheet.appendChild(note);
+    }
+    return note;
+  }
+  const openOld=window.openExpenseModal;
+  window.openExpenseModal=function(){
+    if(typeof openOld==='function') openOld();
+    const title=document.getElementById('expenseModalTitle'); if(title) title.textContent='💰 What did we spend?';
+    const save=document.getElementById('expenseSaveButton'); if(save) save.textContent='Save';
+    ensureSavedNote();
+  };
+  window.saveExpense=function(){
+    const item=document.getElementById('expenseItem')?.value || '';
+    const total=Number(String(document.getElementById('expenseTotal')?.value||'').replace(/[^0-9.]/g,''));
+    const paidBy=document.getElementById('expensePaidBy')?.value || 'crystal';
+    const personal=!!document.getElementById('expensePersonal')?.checked;
+    let split=[...document.querySelectorAll('#expenseModal input[data-split]:checked')].map(x=>x.value);
+    const consumedBy=document.getElementById('expenseConsumedBy')?.value || paidBy;
+    if(!item||!total) return alert('Please complete item and total.');
+    if(!personal && !split.length) return alert('Please choose who to split between.');
+    const arr=readJsonV37('expenses',[]);
+    const now=new Date().toISOString();
+    const data={item,total,paidBy,type:personal?'personal':'shared',split:personal?[consumedBy]:split,consumedBy:personal?consumedBy:null,createdAt:now};
+    if(typeof editingExpenseIndex!=='undefined' && editingExpenseIndex!==null && arr[editingExpenseIndex]){
+      data.createdAt=arr[editingExpenseIndex].createdAt||now;
+      data.editedAt=now;
+      arr[editingExpenseIndex]=data;
+      editingExpenseIndex=null;
+    }else{
+      arr.push(data);
+    }
+    writeJsonV37('expenses',arr);
+    try{renderExpenses();renderToolTransactionHistory();}catch(e){}
+    try{resetExpenseForm();}catch(e){
+      const itemEl=document.getElementById('expenseItem'); if(itemEl) itemEl.value='';
+      const totalEl=document.getElementById('expenseTotal'); if(totalEl) totalEl.value='';
+    }
+    const note=ensureSavedNote();
+    if(note){note.classList.add('show'); setTimeout(()=>note.classList.remove('show'),1600);}
+    const first=document.getElementById('expenseItem'); if(first) setTimeout(()=>first.focus(),80);
+    const save=document.getElementById('expenseSaveButton'); if(save){save.textContent='Save';}
+    const title=document.getElementById('expenseModalTitle'); if(title) title.textContent='💰 What did we spend?';
+    // Stay inside the popup for fast multiple entries. Close button returns to summary.
+  };
+})();

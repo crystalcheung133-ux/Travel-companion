@@ -1389,3 +1389,78 @@ html body.moments-page .btn.primary-action,
   color:#fffaf7!important;
   border-color:#b76c78!important;
 }
+
+/* v3.9.5 focused fix: Moments pink + card-level CCMV watermark across modules */
+html body.moments-page .content-page > .page-hero,
+html body.moments-page .content-page > .page-hero.module-hero,
+html body.moments-page main.content-page > div.page-hero.module-hero,
+html body.moments-page .module-hero{
+  background:linear-gradient(180deg, rgba(255,244,246,.99), rgba(253,235,239,.97))!important;
+  border-color:rgba(202,117,132,.42)!important;
+  box-shadow:0 14px 46px rgba(183,108,120,.12)!important;
+}
+html body.moments-page .content-page > .page-hero .kicker,
+html body.moments-page .module-hero .kicker{color:#9a5361!important;}
+html body.moments-page .content-page > .page-hero h1,
+html body.moments-page .module-hero h1{color:#40262b!important;}
+html body.moments-page .content-page > .page-hero .lead,
+html body.moments-page .module-hero .lead{color:#5e3d45!important;}
+html body.moments-page .primary-action,
+html body.moments-page .btn.primary-action,
+html body.moments-page .page-action-row .primary-action,
+html body.moments-page .page-action-row button,
+html body.moments-page .moments-sheet .btn{
+  background:linear-gradient(180deg,#c97987,#b76c78)!important;
+  color:#fffaf7!important;
+  border-color:#b76c78!important;
+}
+
+.trip-card,
+.timeline-item,
+.moments-entry,
+.expense-card,
+.expense-total-card,
+.expense-focus-card,
+.settlement-card{
+  position:relative!important;
+  overflow:hidden!important;
+  isolation:isolate!important;
+}
+.trip-card::after,
+.timeline-item::after,
+.moments-entry::after,
+.expense-card::after,
+.expense-total-card::after,
+.expense-focus-card::after,
+.settlement-card::after{
+  content:""!important;
+  position:absolute!important;
+  right:-28px!important;
+  bottom:-38px!important;
+  width:132px!important;
+  height:132px!important;
+  background:url('logo-monogram-transparent.png') center/contain no-repeat!important;
+  opacity:.115!important;
+  mix-blend-mode:multiply!important;
+  pointer-events:none!important;
+  z-index:0!important;
+}
+.trip-card > *,
+.timeline-item > *,
+.moments-entry > *,
+.expense-card > *,
+.expense-total-card > *,
+.expense-focus-card > *,
+.settlement-card > *{
+  position:relative!important;
+  z-index:1!important;
+}
+@media(max-width:480px){
+  .trip-card::after,
+  .timeline-item::after,
+  .moments-entry::after,
+  .expense-card::after,
+  .expense-total-card::after,
+  .expense-focus-card::after,
+  .settlement-card::after{width:118px!important;height:118px!important;opacity:.12!important;}
+}

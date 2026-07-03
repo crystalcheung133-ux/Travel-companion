@@ -1390,77 +1390,183 @@ html body.moments-page .btn.primary-action,
   border-color:#b76c78!important;
 }
 
-/* v3.9.5 focused fix: Moments pink + card-level CCMV watermark across modules */
-html body.moments-page .content-page > .page-hero,
-html body.moments-page .content-page > .page-hero.module-hero,
-html body.moments-page main.content-page > div.page-hero.module-hero,
-html body.moments-page .module-hero{
-  background:linear-gradient(180deg, rgba(255,244,246,.99), rgba(253,235,239,.97))!important;
-  border-color:rgba(202,117,132,.42)!important;
-  box-shadow:0 14px 46px rgba(183,108,120,.12)!important;
-}
-html body.moments-page .content-page > .page-hero .kicker,
-html body.moments-page .module-hero .kicker{color:#9a5361!important;}
-html body.moments-page .content-page > .page-hero h1,
-html body.moments-page .module-hero h1{color:#40262b!important;}
-html body.moments-page .content-page > .page-hero .lead,
-html body.moments-page .module-hero .lead{color:#5e3d45!important;}
-html body.moments-page .primary-action,
-html body.moments-page .btn.primary-action,
-html body.moments-page .page-action-row .primary-action,
-html body.moments-page .page-action-row button,
-html body.moments-page .moments-sheet .btn{
-  background:linear-gradient(180deg,#c97987,#b76c78)!important;
-  color:#fffaf7!important;
-  border-color:#b76c78!important;
+
+/* v3.9.6 Card Watermark Consistency Pass
+   Goal: every major content card uses a complete CCMV watermark floating inside the lower-right corner. */
+:root{
+  --card-watermark-size: 92px;
+  --card-watermark-inset: 14px;
+  --card-watermark-opacity: .105;
 }
 
+/* Card containers that should carry the CCMV watermark */
+.dash-card,
+.prose-block,
 .trip-card,
+.hotel-card,
+.fact,
+.quick-info-card,
+.directory-card,
 .timeline-item,
+.day-summary a,
 .moments-entry,
 .expense-card,
 .expense-total-card,
 .expense-focus-card,
-.settlement-card{
+.expense-dashboard-v33 .expense-total-card,
+.expense-dashboard-v33 .expense-focus-card,
+.expense-dashboard-v32 .expense-total-card,
+.expense-dashboard-v32 .expense-focus-card,
+.guide-sheet,
+.moments-sheet,
+.tools-sheet,
+.trip-sheet,
+.category-pop-list button,
+.section .category-pop-list button{
   position:relative!important;
   overflow:hidden!important;
   isolation:isolate!important;
 }
+
+/* Reset previous clipped / repeated watermark implementations on cards. */
+.quick-info-card::after,
+.guide-modal .quick-info-card::after,
+.section .category-pop-list button::after,
+.category-pop-list button::after,
+.dash-card::after,
+.prose-block::after,
 .trip-card::after,
+.hotel-card::after,
+.fact::after,
 .timeline-item::after,
+.day-summary a::after,
 .moments-entry::after,
 .expense-card::after,
 .expense-total-card::after,
 .expense-focus-card::after,
-.settlement-card::after{
+.expense-dashboard-v33 .expense-total-card::after,
+.expense-dashboard-v33 .expense-focus-card::after,
+.expense-dashboard-v32 .expense-total-card::after,
+.expense-dashboard-v32 .expense-focus-card::after,
+.guide-sheet::after,
+.moments-sheet::after,
+.tools-sheet::after,
+.trip-sheet::after{
   content:""!important;
+  display:block!important;
   position:absolute!important;
-  right:-28px!important;
-  bottom:-38px!important;
-  width:132px!important;
-  height:132px!important;
+  width:var(--card-watermark-size)!important;
+  height:var(--card-watermark-size)!important;
+  right:var(--card-watermark-inset)!important;
+  bottom:var(--card-watermark-inset)!important;
+  left:auto!important;
+  top:auto!important;
+  inset:auto var(--card-watermark-inset) var(--card-watermark-inset) auto!important;
   background:url('logo-monogram-transparent.png') center/contain no-repeat!important;
-  opacity:.115!important;
+  background-size:contain!important;
+  background-repeat:no-repeat!important;
+  opacity:var(--card-watermark-opacity)!important;
   mix-blend-mode:multiply!important;
   pointer-events:none!important;
   z-index:0!important;
+  transform:none!important;
 }
+
+/* Keep all text / buttons above the watermark layer. */
+.dash-card > *,
+.prose-block > *,
 .trip-card > *,
+.hotel-card > *,
+.fact > *,
+.quick-info-card > *,
+.directory-card > *,
 .timeline-item > *,
+.day-summary a > *,
 .moments-entry > *,
 .expense-card > *,
 .expense-total-card > *,
 .expense-focus-card > *,
-.settlement-card > *{
+.guide-sheet > *,
+.moments-sheet > *,
+.tools-sheet > *,
+.trip-sheet > *,
+.category-pop-list button > *,
+.section .category-pop-list button > *{
   position:relative!important;
   z-index:1!important;
 }
+
+/* Smaller cards need a softer watermark so it does not compete with content. */
+.fact::after,
+.expense-card::after,
+.category-pop-list button::after,
+.section .category-pop-list button::after{
+  width:68px!important;
+  height:68px!important;
+  right:10px!important;
+  bottom:10px!important;
+  inset:auto 10px 10px auto!important;
+  opacity:.075!important;
+}
+
+/* Long timeline cards and guide cards keep the premium but complete logo. */
+.timeline-item::after,
+.quick-info-card::after,
+.guide-modal .quick-info-card::after,
+.trip-card::after,
+.hotel-card::after,
+.moments-entry::after,
+.expense-total-card::after,
+.expense-focus-card::after{
+  width:88px!important;
+  height:88px!important;
+  right:14px!important;
+  bottom:14px!important;
+  inset:auto 14px 14px auto!important;
+  opacity:.10!important;
+}
+
+/* Modal sheets can use a larger watermark because they are larger cards. */
+.guide-sheet::after,
+.moments-sheet::after,
+.tools-sheet::after,
+.trip-sheet::after{
+  width:118px!important;
+  height:118px!important;
+  right:18px!important;
+  bottom:18px!important;
+  inset:auto 18px 18px auto!important;
+  opacity:.075!important;
+}
+
 @media(max-width:480px){
-  .trip-card::after,
+  :root{
+    --card-watermark-size: 78px;
+    --card-watermark-inset: 12px;
+    --card-watermark-opacity: .095;
+  }
   .timeline-item::after,
+  .quick-info-card::after,
+  .guide-modal .quick-info-card::after,
+  .trip-card::after,
+  .hotel-card::after,
   .moments-entry::after,
-  .expense-card::after,
   .expense-total-card::after,
-  .expense-focus-card::after,
-  .settlement-card::after{width:118px!important;height:118px!important;opacity:.12!important;}
+  .expense-focus-card::after{
+    width:76px!important;
+    height:76px!important;
+    right:12px!important;
+    bottom:12px!important;
+    inset:auto 12px 12px auto!important;
+  }
+  .guide-sheet::after,
+  .moments-sheet::after,
+  .tools-sheet::after,
+  .trip-sheet::after{
+    width:96px!important;
+    height:96px!important;
+    right:14px!important;
+    bottom:14px!important;
+    inset:auto 14px 14px auto!important;
+  }
 }

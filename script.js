@@ -875,3 +875,134 @@ document.addEventListener('DOMContentLoaded',()=>{
     try{ if(sessionStorage.getItem('daySwipeTop')==='1'){ sessionStorage.removeItem('daySwipeTop'); window.scrollTo(0,0); } }catch(e){}
   });
 })();
+
+
+/* v3.9.6c Final UX Hotfix: current-user defaults for Moments and Expenses */
+(function(){
+  const DEFAULT_FRIEND = 'crystal';
+  function currentUser(){
+    try { return (typeof getFriend === 'function' ? getFriend() : localStorage.getItem('saigon_friend')) || DEFAULT_FRIEND; }
+    catch(e){ return DEFAULT_FRIEND; }
+  }
+  function friendLabel(k){
+    try { return (typeof FRIENDS !== 'undefined' && FRIENDS[k]) ? FRIENDS[k] : (FRIENDS?.[DEFAULT_FRIEND] || '👓 Crystal'); }
+    catch(e){ return '👓 Crystal'; }
+  }
+  function setSelectValue(id, value){
+    const el=document.getElementById(id);
+    if(!el) return;
+    el.value=value;
+    // Force mobile Safari to repaint the selected label.
+    Array.from(el.options || []).forEach(opt => { opt.selected = (opt.value === value); });
+    el.dispatchEvent(new Event('change', {bubbles:true}));
+  }
+  function resetExpenseFormToCurrentUser(){
+    const user=currentUser();
+    if(typeof editingExpenseIndex !== 'undefined') editingExpenseIndex=null;
+    const item=document.getElementById('expenseItem'); if(item) item.value='';
+    const total=document.getElementById('expenseTotal'); if(total) total.value='';
+    setSelectValue('expensePaidBy', user);
+    const personal=document.getElementById('expensePersonal'); if(personal) personal.checked=false;
+    const consumed=document.getElementById('expenseConsumedBy');
+    if(consumed){ consumed.dataset.manual='false'; setSelectValue('expenseConsumedBy', user); }
+    try{ splitAll(); }catch(e){ document.querySelectorAll('#expenseModal input[data-split]').forEach(x=>x.checked=true); }
+    try{ updateExpenseMode(); }catch(e){}
+    const title=document.getElementById('expenseModalTitle'); if(title) title.textContent='💰 What did we spend?';
+    const save=document.getElementById('expenseSaveButton'); if(save) save.textContent='Save';
+  }
+  window.resetExpenseForm = resetExpenseFormToCurrentUser;
+
+  const previousOpenExpense = window.openExpenseModal;
+  window.openExpenseModal = function(){
+    if(typeof previousOpenExpense === 'function') previousOpenExpense();
+    resetExpenseFormToCurrentUser();
+    const modal=document.getElementById('expenseModal'); if(modal) modal.classList.add('show');
+    setTimeout(()=>setSelectValue('expensePaidBy', currentUser()), 0);
+  };
+
+  window.saveExpense = function(){
+    const item=(document.getElementById('expenseItem')?.value || '').trim();
+    const total=Number(String(document.getElementById('expenseTotal')?.value||'').replace(/[^0-9.]/g,''));
+    const paidBy=document.getElementById('expensePaidBy')?.value || currentUser();
+    const personal=!!document.getElementById('expensePersonal')?.checked;
+    const split=[...document.querySelectorAll('#expenseModal input[data-split]:checked')].map(x=>x.value);
+    const consumedBy=document.getElementById('expenseConsumedBy')?.value || paidBy;
+    if(!item || !total) return alert('Please complete item and total.');
+    if(!personal && !split.length) return alert('Please choose who to split between.');
+    let arr=[];
+    try{ arr=JSON.parse(localStorage.getItem('expenses')||'[]'); }catch(e){ arr=[]; }
+    const now=new Date().toISOString();
+    const data={item,total,paidBy,type:personal?'personal':'shared',split:personal?[consumedBy]:split,consumedBy:personal?consumedBy:null,createdAt:now};
+    if(typeof editingExpenseIndex !== 'undefined' && editingExpenseIndex!==null && arr[editingExpenseIndex]){
+      data.createdAt=arr[editingExpenseIndex].createdAt || now;
+      data.editedAt=now;
+      arr[editingExpenseIndex]=data;
+      editingExpenseIndex=null;
+    }else{
+      arr.push(data);
+    }
+    localStorage.setItem('expenses', JSON.stringify(arr));
+    try{ renderExpenses(); }catch(e){}
+    try{ renderToolTransactionHistory(); }catch(e){}
+    resetExpenseFormToCurrentUser();
+    const note=document.getElementById('expenseSavedNote') || (function(){
+      const sheet=document.querySelector('#expenseModal .tools-sheet');
+      if(!sheet) return null;
+      const n=document.createElement('div');
+      n.id='expenseSavedNote';
+      n.className='expense-saved-note';
+      n.textContent='✓ Expense saved. Ready for the next one.';
+      const form=sheet.querySelector('.expense-form');
+      sheet.insertBefore(n, form || sheet.firstChild);
+      return n;
+    })();
+    if(note){ note.classList.add('show'); setTimeout(()=>note.classList.remove('show'),1400); }
+    const first=document.getElementById('expenseItem'); if(first) setTimeout(()=>first.focus(),60);
+    // Stay inside the popup for fast multiple expense entries.
+  };
+
+  // Keep edit flow intact, but ensure the select visibly shows the stored payer.
+  const previousEditExpense = window.editExpense;
+  window.editExpense = function(i){
+    if(typeof previousEditExpense === 'function') previousEditExpense(i);
+    try{
+      const arr=JSON.parse(localStorage.getItem('expenses')||'[]');
+      const e=arr[i];
+      if(e){ setSelectValue('expensePaidBy', e.paidBy || currentUser()); }
+    }catch(e){}
+  };
+
+  function simplifyMomentsAuthor(){
+    const row=document.querySelector('#momentsModal p:has(#momentsFriend)');
+    const badge=document.getElementById('momentsFriend');
+    if(badge) badge.textContent='By ' + friendLabel(currentUser());
+    if(row){
+      row.classList.add('moments-author-row');
+      row.querySelectorAll('button').forEach(btn=>btn.remove());
+    }
+  }
+  const previousOpenMoments = window.openMomentsModal;
+  window.openMomentsModal = function(key){
+    if(typeof previousOpenMoments === 'function') previousOpenMoments(key);
+    simplifyMomentsAuthor();
+  };
+  const previousSaveMoments = window.saveMoments;
+  window.saveMoments = function(){
+    if(typeof previousSaveMoments === 'function') previousSaveMoments();
+    // Moments are one-at-a-time: save, close, return to summary.
+    try{ closeMomentsModal(); renderMoments(); }catch(e){}
+  };
+
+  const previousSetFriend = window.setFriend;
+  window.setFriend = function(k){
+    if(typeof previousSetFriend === 'function') previousSetFriend(k);
+    if(document.getElementById('expenseModal')?.classList.contains('show')) resetExpenseFormToCurrentUser();
+    if(document.getElementById('momentsModal')?.classList.contains('show')) simplifyMomentsAuthor();
+  };
+
+  document.addEventListener('DOMContentLoaded',()=>{
+    setSelectValue('expensePaidBy', currentUser());
+    setSelectValue('expenseConsumedBy', currentUser());
+    simplifyMomentsAuthor();
+  });
+})();

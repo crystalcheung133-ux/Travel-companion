@@ -2054,3 +2054,39 @@ html body.expenses-page .page-action-row .primary-action{
   .tools-sheet .expense-form label,.tools-sheet .expense-form p{font-size:16px!important;}
   .tools-sheet #expensePaidBy,.tools-sheet #expenseConsumedBy,.tools-sheet .expense-form select{min-height:52px!important;font-size:17px!important;}
 }
+
+
+/* v3.9.6c Final UX Hotfix: readable Current User fields */
+.tools-sheet #expensePaidBy,
+.tools-sheet #expenseConsumedBy,
+.expense-form select.btn{
+  display:block!important;
+  width:100%!important;
+  color:#2f241d!important;
+  background:#fffaf2!important;
+  border:1.5px solid rgba(88,116,84,.38)!important;
+  font-weight:900!important;
+  text-align:left!important;
+  -webkit-appearance:menulist!important;
+  appearance:auto!important;
+}
+.tools-sheet #expensePaidBy:focus,
+.tools-sheet #expenseConsumedBy:focus{
+  outline:2px solid rgba(88,116,84,.28)!important;
+  outline-offset:2px!important;
+}
+.moments-author-row{
+  margin:0 0 8px!important;
+}
+.moments-author-row .status-badge{
+  display:inline-flex!important;
+  align-items:center!important;
+  min-height:34px!important;
+  padding:7px 12px!important;
+  border-radius:999px!important;
+  background:#fff1f3!important;
+  border:1px solid rgba(183,88,105,.34)!important;
+  color:#3b201f!important;
+  font-size:15px!important;
+  font-weight:900!important;
+}

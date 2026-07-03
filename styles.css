@@ -2102,3 +2102,135 @@ html body.expenses-page .page-action-row .primary-action{
 .paid-by-choices button{border:1.5px solid rgba(214,194,174,.9);background:rgba(255,250,242,.96);border-radius:18px;padding:13px 10px;font-size:18px;font-weight:900;color:#2d241f;text-align:center;}
 .paid-by-choices button.active{background:rgba(228,242,225,.98);border-color:#699270;box-shadow:0 0 0 3px rgba(105,146,112,.14) inset;}
 @media(max-width:420px){.paid-by-current{font-size:20px}.paid-by-change{font-size:15px;padding:9px 13px}.paid-by-choices button{font-size:17px}}
+
+/* v3.9.7 Final Polish: Trip cards fit one screen without reducing outdoor readability */
+#tripModal .trip-sheet{
+  height:auto!important;
+  max-height:calc(100dvh - 16px)!important;
+  padding:54px 18px 16px!important;
+}
+#tripModalContent .trip-onepage{
+  display:flex!important;
+  flex-direction:column!important;
+  gap:8px!important;
+}
+#tripModalContent .trip-onepage .kicker{
+  margin:0!important;
+  font-size:12px!important;
+  line-height:1.1!important;
+}
+#tripModalContent .trip-onepage h2{
+  font-size:28px!important;
+  line-height:1.08!important;
+  margin:0 48px 4px 0!important;
+}
+#tripModalContent .trip-onepage p{
+  margin:2px 0 6px!important;
+  font-size:16px!important;
+  line-height:1.38!important;
+  font-weight:650!important;
+}
+#tripModalContent .trip-onepage .fact-grid{
+  gap:7px!important;
+}
+#tripModalContent .trip-onepage .fact{
+  padding:9px 10px!important;
+  border-radius:14px!important;
+  font-size:15px!important;
+  line-height:1.28!important;
+}
+#tripModalContent .trip-onepage .fact strong{
+  font-size:14px!important;
+  line-height:1.15!important;
+  margin-bottom:2px!important;
+}
+#tripModalContent .trip-onepage .checklist-mini{
+  gap:6px!important;
+}
+#tripModalContent .trip-onepage .check-row{
+  min-height:34px!important;
+  padding:7px 8px!important;
+  font-size:14.5px!important;
+  line-height:1.1!important;
+}
+#tripModalContent .trip-onepage .check-row input{
+  width:17px!important;
+  height:17px!important;
+}
+#tripModalContent .trip-onepage .ready-box{
+  padding:10px!important;
+  margin-top:2px!important;
+}
+#tripModalContent .trip-onepage .ready-box h2{
+  font-size:22px!important;
+  margin:0!important;
+}
+#tripModalContent .trip-onepage .ready-box p{
+  margin:0!important;
+}
+#tripModalContent .trip-onepage .exchange-card{
+  padding:11px!important;
+  margin:2px 0 4px!important;
+  border-radius:18px!important;
+}
+#tripModalContent .trip-onepage .exchange-card h3{
+  font-size:21px!important;
+  margin:2px 0 6px!important;
+  line-height:1.1!important;
+}
+#tripModalContent .trip-onepage .exchange-grid{
+  grid-template-columns:repeat(4,1fr)!important;
+  gap:5px!important;
+  margin-top:6px!important;
+}
+#tripModalContent .trip-onepage .exchange-grid div{
+  padding:7px 5px!important;
+  border-radius:12px!important;
+  text-align:center!important;
+}
+#tripModalContent .trip-onepage .exchange-grid strong{
+  font-size:12px!important;
+  line-height:1.1!important;
+}
+#tripModalContent .trip-onepage .exchange-grid span{
+  font-size:12px!important;
+  line-height:1.1!important;
+  margin-top:2px!important;
+}
+#tripModalContent .trip-onepage .timestamp{
+  font-size:12.5px!important;
+  line-height:1.25!important;
+  margin:2px 0!important;
+}
+#tripModalContent .trip-onepage ul.trip-list-compact,
+#tripModalContent .trip-onepage ul{
+  margin:0!important;
+  padding-left:18px!important;
+  line-height:1.38!important;
+}
+#tripModalContent .trip-onepage li{
+  font-size:16px!important;
+  line-height:1.38!important;
+  margin:4px 0!important;
+  font-weight:650!important;
+}
+#tripModalContent .trip-onepage .pill{
+  min-height:36px!important;
+  padding:8px 11px!important;
+  font-size:14px!important;
+}
+#tripModalContent .trip-onepage .guide-next-row{
+  margin-top:4px!important;
+  gap:8px!important;
+}
+@media(max-width:430px){
+  #tripModal .trip-sheet{padding:50px 14px 12px!important;max-height:calc(100dvh - 10px)!important;}
+  #tripModalContent .trip-onepage{gap:6px!important;}
+  #tripModalContent .trip-onepage h2{font-size:25px!important;margin-right:44px!important;}
+  #tripModalContent .trip-onepage p{font-size:15px!important;line-height:1.32!important;}
+  #tripModalContent .trip-onepage .fact{font-size:14px!important;padding:8px!important;}
+  #tripModalContent .trip-onepage .check-row{font-size:13.5px!important;min-height:32px!important;padding:6px 7px!important;}
+  #tripModalContent .trip-onepage .exchange-grid{gap:4px!important;}
+  #tripModalContent .trip-onepage .exchange-grid strong,
+  #tripModalContent .trip-onepage .exchange-grid span{font-size:11px!important;}
+}

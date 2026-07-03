@@ -1275,3 +1275,93 @@ input,select,textarea{font-size:16px!important;-webkit-text-size-adjust:100%;}
   .mood-btn{min-height:36px!important;font-size:13px!important;}
   .moments-form textarea,#unexpectedText{min-height:82px!important;}
 }
+
+/* v3.9.3 Navigation & Branding Fix */
+/* Bottom menu popups: JS positions each menu under its own nav button; keep them visible and above nav. */
+.mini-menu{
+  position:fixed!important;
+  bottom:82px!important;
+  left:50%!important;
+  right:auto!important;
+  width:min(230px, calc(100vw - 24px))!important;
+  max-height:min(64svh, 520px)!important;
+  overflow:auto!important;
+  z-index:150!important;
+  transform:translateX(-50%) translateY(8px)!important;
+}
+.mini-menu.show{transform:translateX(-50%) translateY(0)!important;}
+#tripMenu,#guideMenu,#daysMenu{left:50%!important;right:auto!important;}
+
+/* Guide place-card watermark: card-level, right bottom, not page background. */
+.quick-info-card,
+.guide-modal .quick-info-card,
+.guide-modal .guide-sheet,
+.section .category-pop-list button{
+  position:relative!important;
+  overflow:hidden!important;
+  isolation:isolate;
+}
+.quick-info-card::after,
+.guide-modal .quick-info-card::after,
+.section .category-pop-list button::after{
+  content:"";
+  position:absolute;
+  right:-30px;
+  bottom:-42px;
+  width:150px;
+  height:150px;
+  background:url('logo-monogram-transparent.png') center/contain no-repeat;
+  opacity:.13;
+  mix-blend-mode:multiply;
+  pointer-events:none;
+  z-index:0;
+}
+.quick-info-card > *,
+.guide-modal .quick-info-card > *,
+.section .category-pop-list button > *{position:relative;z-index:1;}
+.section .category-pop-list button::after{width:88px;height:88px;right:-20px;bottom:-26px;opacity:.10;}
+
+/* Moments returns to its pink theme; Expenses stays sage. */
+body:has(.page-action-row[data-v35="moment-action"]) .page-hero,
+body:has(.page-action-row[data-v35="moment-action"]) .module-hero{
+  background:linear-gradient(180deg, rgba(255,244,246,.98), rgba(253,235,239,.96))!important;
+  border-color:rgba(202,117,132,.28)!important;
+}
+body:has(.page-action-row[data-v35="moment-action"]) .page-hero .kicker,
+body:has(.page-action-row[data-v35="moment-action"]) .module-hero .kicker{color:#9a5361!important;}
+body:has(.page-action-row[data-v35="moment-action"]) .primary-action,
+.moments-sheet .btn{
+  background:#b76c78!important;
+  color:#fffaf7!important;
+  border-color:#b76c78!important;
+}
+body:has(.page-action-row[data-v35="expense-action"]) .page-hero,
+body:has(.page-action-row[data-v35="expense-action"]) .module-hero{
+  background:linear-gradient(180deg, rgba(242,249,244,.98), rgba(231,242,234,.96))!important;
+  border-color:rgba(100,139,113,.30)!important;
+}
+body:has(.page-action-row[data-v35="expense-action"]) .page-hero .kicker,
+body:has(.page-action-row[data-v35="expense-action"]) .module-hero .kicker{color:#527a5d!important;}
+body:has(.page-action-row[data-v35="expense-action"]) .primary-action,
+.tools-sheet .btn{
+  background:#678f72!important;
+  color:#fffaf7!important;
+  border-color:#678f72!important;
+}
+
+/* Swipe affordance for day pages */
+.day-swipe-hint{
+  font-size:12px;
+  color:#6e6258;
+  font-weight:800;
+  text-align:center;
+  letter-spacing:.05em;
+  margin:6px 0 0;
+  opacity:.78;
+}
+body.moments-page .page-hero, body.moments-page .module-hero{background:linear-gradient(180deg, rgba(255,244,246,.98), rgba(253,235,239,.96))!important;border-color:rgba(202,117,132,.28)!important;}
+body.moments-page .page-hero .kicker, body.moments-page .module-hero .kicker{color:#9a5361!important;}
+body.moments-page .primary-action{background:#b76c78!important;color:#fffaf7!important;border-color:#b76c78!important;}
+body.expenses-page .page-hero, body.expenses-page .module-hero{background:linear-gradient(180deg, rgba(242,249,244,.98), rgba(231,242,234,.96))!important;border-color:rgba(100,139,113,.30)!important;}
+body.expenses-page .page-hero .kicker, body.expenses-page .module-hero .kicker{color:#527a5d!important;}
+body.expenses-page .primary-action{background:#678f72!important;color:#fffaf7!important;border-color:#678f72!important;}

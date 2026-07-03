@@ -804,3 +804,59 @@ document.addEventListener('DOMContentLoaded',()=>{
     // Stay inside the popup for fast multiple entries. Close button returns to summary.
   };
 })();
+
+/* v3.9.3 Navigation & Branding Fix */
+(function(){
+  function clamp(n,min,max){return Math.max(min, Math.min(max,n));}
+  function positionMiniMenu(menu, trigger){
+    if(!menu || !trigger) return;
+    const rect = trigger.getBoundingClientRect();
+    const menuWidth = Math.min(230, window.innerWidth - 24);
+    const center = rect.left + rect.width/2;
+    const left = clamp(center, 12 + menuWidth/2, window.innerWidth - 12 - menuWidth/2);
+    menu.style.left = left + 'px';
+    menu.style.right = 'auto';
+    menu.style.width = menuWidth + 'px';
+  }
+  window.toggleMenu = function(id, trigger){
+    const m = document.getElementById(id);
+    const open = m && m.classList.contains('show');
+    closeMiniMenus();
+    if(m && !open){
+      positionMiniMenu(m, trigger || document.activeElement);
+      m.classList.add('show');
+    }
+  };
+  window.toggleTripMenu = function(){ toggleMenu('tripMenu', document.querySelector('.trip-trigger')); };
+  window.toggleGuideMenu = function(){ toggleMenu('guideMenu', document.querySelector('.guide-trigger')); };
+  window.toggleDays = function(){ toggleMenu('daysMenu', document.querySelector('.days-trigger')); };
+  window.addEventListener('resize', closeMiniMenus);
+})();
+
+(function(){
+  const match = location.pathname.match(/day([1-5])\.html$/);
+  if(!match) return;
+  const current = Number(match[1]);
+  let startX = 0, startY = 0, startT = 0;
+  function isInteractive(el){return !!el.closest('a,button,input,select,textarea,label,.mini-menu,.guide-modal,.trip-modal,.moments-modal,.tools-modal,.mama-modal');}
+  document.addEventListener('touchstart', function(e){
+    if(!e.touches || e.touches.length !== 1 || isInteractive(e.target)) return;
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+    startT = Date.now();
+  }, {passive:true});
+  document.addEventListener('touchend', function(e){
+    if(!startT || !e.changedTouches || e.changedTouches.length !== 1) return;
+    const dx = e.changedTouches[0].clientX - startX;
+    const dy = e.changedTouches[0].clientY - startY;
+    const absX = Math.abs(dx), absY = Math.abs(dy);
+    startT = 0;
+    if(absX < 72 || absX < absY * 1.45) return;
+    let next = current;
+    if(dx < 0 && current < 5) next = current + 1;
+    if(dx > 0 && current > 1) next = current - 1;
+    if(next !== current){
+      window.location.href = `day${next}.html`;
+    }
+  }, {passive:true});
+})();

@@ -1112,3 +1112,166 @@ h3{font-size:20px;}
   .moments-form textarea,#unexpectedText{min-height:82px!important;max-height:96px!important;}
   .mood-btn{font-size:13.5px!important;min-height:36px!important;}
 }
+
+/* v3.9.2 Design Consistency + Outdoor Use Final Pass */
+/* Global CCMV watermark system: visible on every page, consistent and still readable outdoors. */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background-image:url('logo-monogram-transparent.png');
+  background-repeat:repeat;
+  background-size:340px 340px;
+  background-position:center 92px;
+  opacity:.105;
+  mix-blend-mode:multiply;
+  filter:saturate(1.08) contrast(1.08);
+}
+.site-nav,.app-nav,.mini-menu,.guide-modal,.moments-modal,.unexpected-modal,.tools-modal,.mama-modal,.trip-modal{position:relative;z-index:50;}
+main,.content-page,.section,.dashboard{position:relative;z-index:1;}
+.content-page,.section,.dashboard{isolation:isolate;}
+
+/* Unified module header: label → title → intro → CTA → content */
+.page-hero,.section-head,.module-hero{
+  position:relative;
+  overflow:hidden;
+  border-radius:32px!important;
+  padding:24px 24px 22px!important;
+  margin:20px 0 24px!important;
+  border:1px solid rgba(210,190,169,.78)!important;
+  box-shadow:0 14px 46px rgba(54,39,24,.07)!important;
+}
+.page-hero::after,.section-head::after,.module-hero::after{
+  content:"";
+  position:absolute;
+  right:-70px;
+  bottom:-86px;
+  width:260px;
+  height:260px;
+  background:url('logo-monogram-transparent.png') center/contain no-repeat;
+  opacity:.15;
+  mix-blend-mode:multiply;
+  pointer-events:none;
+}
+.page-hero > *,.section-head > *,.module-hero > *{position:relative;z-index:1;}
+.page-hero .kicker,.section-head .kicker,.module-hero .kicker{
+  display:block!important;
+  margin:0 0 10px!important;
+  font-size:14px!important;
+  line-height:1.1!important;
+  letter-spacing:.18em!important;
+  text-transform:uppercase!important;
+  font-weight:950!important;
+  color:#7a4a31!important;
+}
+.page-hero h1,.section-head h1,.module-hero h1{
+  margin:0 0 14px!important;
+  font-size:clamp(52px,12vw,84px)!important;
+  line-height:.88!important;
+  color:#241b16!important;
+}
+.page-hero .lead,.section-head .lead,.module-hero .lead{
+  margin:0!important;
+  font-size:18px!important;
+  line-height:1.58!important;
+  font-weight:720!important;
+  color:#46392f!important;
+}
+.page-action-row{margin-top:18px!important;}
+
+/* Module colour accents remain subtle but consistent. */
+body:has(#momentsTimeline) .page-hero{background:linear-gradient(180deg,rgba(244,204,190,.82),rgba(255,250,242,.74))!important;}
+body:has(.expense-page-shell) .page-hero{background:linear-gradient(180deg,rgba(214,232,211,.86),rgba(255,250,242,.76))!important;}
+body:has(#tripModal) .page-hero,body:has(.trip-grid) .page-hero{background:linear-gradient(180deg,rgba(222,229,207,.82),rgba(255,250,242,.74))!important;}
+
+/* Days note: formal copy only, no development/update wording. */
+.day-lite-note{
+  margin:8px 0 18px!important;
+  border:1px solid rgba(138,79,45,.22)!important;
+  background:rgba(255,250,242,.78)!important;
+  border-radius:18px!important;
+  padding:12px 14px!important;
+  font-size:16px!important;
+  line-height:1.5!important;
+  font-weight:760!important;
+  color:#3d3028!important;
+}
+
+/* Full-height iPhone sheet style for Moments and Expenses input. */
+.moments-modal.show,.tools-modal.show{
+  display:flex!important;
+  align-items:flex-end!important;
+  justify-content:center!important;
+  padding:8px 8px calc(8px + env(safe-area-inset-bottom))!important;
+  overflow:hidden!important;
+}
+.moments-sheet,.tools-sheet{
+  width:min(760px,calc(100vw - 16px))!important;
+  height:min(94svh,760px)!important;
+  max-height:min(94svh,760px)!important;
+  overflow:hidden!important;
+  display:flex!important;
+  flex-direction:column!important;
+  border-radius:32px 32px 24px 24px!important;
+  padding:22px 22px 18px!important;
+  background:linear-gradient(180deg,rgba(255,253,249,.98),rgba(255,249,241,.98))!important;
+}
+.moments-sheet .moments-form,.tools-sheet .expense-form{
+  min-height:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  gap:8px!important;
+  overflow:hidden!important;
+}
+.moments-sheet h2,.tools-sheet h2{
+  font-size:34px!important;
+  line-height:1!important;
+  margin:0 48px 6px 0!important;
+  font-weight:950!important;
+}
+.moments-sheet .kicker,.tools-sheet .kicker{font-size:13px!important;letter-spacing:.16em!important;margin:0 0 6px!important;}
+.moments-sheet .modal-intro,.tools-sheet .modal-intro{font-size:16px!important;line-height:1.42!important;margin:0 0 8px!important;font-weight:720!important;}
+.moments-sheet p:has(#momentsFriend),.tools-sheet p:has(#expenseFriend){margin:0 0 6px!important;}
+.star-row{margin:0!important;line-height:1!important;}
+.star-row .star{font-size:28px!important;}
+.mood-help{margin:0!important;font-size:13px!important;font-weight:800!important;color:#5a4638!important;}
+.mood-grid{display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:6px!important;}
+.mood-btn{min-height:38px!important;font-size:13.5px!important;padding:7px 6px!important;border-radius:14px!important;}
+.moments-form textarea,#unexpectedText{
+  flex:1 1 auto!important;
+  min-height:92px!important;
+  max-height:none!important;
+  resize:none!important;
+  font-size:16px!important;
+  line-height:1.45!important;
+}
+.photo-input{margin:0!important;padding:10px 12px!important;border-radius:16px!important;font-size:14px!important;font-weight:760!important;}
+.moments-sheet .btn,.tools-sheet .btn{min-height:48px!important;font-size:16px!important;font-weight:950!important;}
+.expense-form input,.expense-form select,.tools-sheet input,.tools-sheet select{
+  min-height:46px!important;
+  margin:0!important;
+  font-size:16px!important;
+  border-radius:15px!important;
+}
+.expense-form label{font-size:14px!important;line-height:1.2!important;font-weight:760!important;margin:0!important;}
+.expense-form label input[type="checkbox"]{width:18px!important;height:18px!important;}
+.tools-sheet .expense-saved-note{font-size:13px!important;margin:0!important;padding:8px!important;}
+
+/* Keep form inputs stable on iPhone when typing. */
+input,select,textarea{font-size:16px!important;-webkit-text-size-adjust:100%;}
+
+@media(max-width:480px){
+  body::before{background-size:300px 300px;opacity:.115;}
+  .page-hero,.section-head,.module-hero{padding:22px 22px 20px!important;border-radius:30px!important;}
+  .page-hero h1,.section-head h1,.module-hero h1{font-size:clamp(50px,13vw,76px)!important;}
+  .page-hero .lead,.section-head .lead,.module-hero .lead{font-size:17px!important;line-height:1.56!important;}
+  .page-hero::after,.section-head::after,.module-hero::after{width:220px;height:220px;opacity:.16;}
+  .moments-sheet,.tools-sheet{width:calc(100vw - 12px)!important;height:94svh!important;max-height:94svh!important;padding:18px 18px 14px!important;border-radius:30px 30px 22px 22px!important;}
+  .moments-sheet h2,.tools-sheet h2{font-size:30px!important;}
+  .moments-sheet .modal-intro,.tools-sheet .modal-intro{font-size:15px!important;line-height:1.38!important;}
+  .mood-grid{grid-template-columns:repeat(2,1fr)!important;}
+  .mood-btn{min-height:36px!important;font-size:13px!important;}
+  .moments-form textarea,#unexpectedText{min-height:82px!important;}
+}

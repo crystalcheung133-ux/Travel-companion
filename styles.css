@@ -1793,3 +1793,192 @@ body.moments-page .moments-sheet button.btn{
     bottom:14px!important;
   }
 }
+
+/* v3.9.6a REAL hotfix: restore modal scroll/close, final pink Moments, clean monogram watermark */
+/* 1) Modal sheets must scroll; previous watermark rule used overflow:hidden on sheets. */
+.guide-sheet,
+.trip-sheet,
+.moments-sheet,
+.tools-sheet{
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  -webkit-overflow-scrolling:touch!important;
+  max-height:calc(100dvh - 28px)!important;
+  position:relative!important;
+  padding-top:66px!important;
+}
+.guide-modal.show,
+.trip-modal.show,
+.moments-modal.show,
+.tools-modal.show{
+  display:grid!important;
+  place-items:center!important;
+  overflow:auto!important;
+  padding:14px!important;
+}
+.guide-close,
+.trip-close,
+.moments-close,
+.tools-close{
+  position:absolute!important;
+  top:14px!important;
+  right:14px!important;
+  left:auto!important;
+  bottom:auto!important;
+  z-index:100000!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:44px!important;
+  height:44px!important;
+  float:none!important;
+  border-radius:999px!important;
+  pointer-events:auto!important;
+  background:#fffaf2!important;
+  color:#2b251f!important;
+  border:1px solid #d8c5b1!important;
+  box-shadow:0 8px 24px rgba(43,37,31,.14)!important;
+}
+
+/* 2) Moments page must stay pink; no Expenses green bleed. */
+html body.moments-page .page-hero,
+html body.moments-page .module-hero,
+html body.moments-page main .page-hero.module-hero{
+  background:linear-gradient(180deg,#fdecef 0%,#f7d5dc 100%)!important;
+  border-color:rgba(183,88,105,.38)!important;
+  box-shadow:0 14px 45px rgba(183,88,105,.12)!important;
+}
+html body.moments-page .page-hero .kicker,
+html body.moments-page .module-hero .kicker{
+  color:#9a5361!important;
+}
+html body.moments-page .page-hero h1,
+html body.moments-page .module-hero h1{
+  color:#2b251f!important;
+}
+html body.moments-page .page-hero .lead,
+html body.moments-page .module-hero .lead{
+  color:#5a403f!important;
+}
+html body.moments-page .primary-action,
+html body.moments-page .btn.primary-action,
+html body.moments-page .page-action-row .primary-action{
+  background:linear-gradient(180deg,#fff1f3 0%,#f4bdc8 100%)!important;
+  border-color:rgba(183,88,105,.42)!important;
+  color:#3b201f!important;
+}
+
+/* Expenses remains sage green. */
+html body.expenses-page .page-hero,
+html body.expenses-page .module-hero,
+html body.expenses-page main .page-hero.module-hero{
+  background:linear-gradient(180deg,#eef8ea 0%,#d6e8d3 100%)!important;
+  border-color:rgba(111,143,107,.36)!important;
+}
+html body.expenses-page .primary-action,
+html body.expenses-page .btn.primary-action,
+html body.expenses-page .page-action-row .primary-action{
+  background:linear-gradient(180deg,#eef8ea 0%,#cfe3ca 100%)!important;
+  border-color:rgba(111,143,107,.44)!important;
+  color:#233c2d!important;
+}
+
+/* 3) Use clean monogram-only watermark, complete inside card. */
+.dash-card::after,
+.prose-block::after,
+.trip-card::after,
+.hotel-card::after,
+.fact::after,
+.quick-info-card::after,
+.directory-card::after,
+.timeline-item::after,
+.day-summary a::after,
+.moments-entry::after,
+.expense-card::after,
+.expense-total-card::after,
+.expense-focus-card::after,
+.guide-sheet::after,
+.trip-sheet::after,
+.moments-sheet::after,
+.tools-sheet::after{
+  background-image:url('logo-watermark-monogram.png')!important;
+  background-size:contain!important;
+  background-repeat:no-repeat!important;
+  background-position:center!important;
+  right:16px!important;
+  bottom:16px!important;
+  width:78px!important;
+  height:78px!important;
+  opacity:.095!important;
+  mix-blend-mode:multiply!important;
+  transform:none!important;
+  pointer-events:none!important;
+  z-index:0!important;
+}
+.guide-sheet::after,
+.trip-sheet::after,
+.moments-sheet::after,
+.tools-sheet::after{
+  width:96px!important;
+  height:96px!important;
+  right:18px!important;
+  bottom:18px!important;
+  opacity:.075!important;
+}
+.fact::after,
+.expense-card::after,
+.directory-card::after{
+  width:62px!important;
+  height:62px!important;
+  right:12px!important;
+  bottom:12px!important;
+  opacity:.075!important;
+}
+
+@media(max-width:520px){
+  .guide-modal.show,
+  .trip-modal.show,
+  .moments-modal.show,
+  .tools-modal.show{padding:8px!important;}
+  .guide-sheet,
+  .trip-sheet,
+  .moments-sheet,
+  .tools-sheet{
+    width:100%!important;
+    max-height:calc(100dvh - 16px)!important;
+    padding-top:60px!important;
+  }
+  .guide-close,
+  .trip-close,
+  .moments-close,
+  .tools-close{
+    top:10px!important;
+    right:10px!important;
+    width:42px!important;
+    height:42px!important;
+  }
+  .dash-card::after,
+  .prose-block::after,
+  .trip-card::after,
+  .hotel-card::after,
+  .quick-info-card::after,
+  .timeline-item::after,
+  .day-summary a::after,
+  .moments-entry::after,
+  .expense-total-card::after,
+  .expense-focus-card::after{
+    width:70px!important;
+    height:70px!important;
+    right:12px!important;
+    bottom:12px!important;
+  }
+  .guide-sheet::after,
+  .trip-sheet::after,
+  .moments-sheet::after,
+  .tools-sheet::after{
+    width:88px!important;
+    height:88px!important;
+    right:14px!important;
+    bottom:14px!important;
+  }
+}
